@@ -6,10 +6,6 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-<<<<<<< HEAD
-=======
-
->>>>>>> 9148488f7fb9aade5ca729fe169b505796bbf6f0
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
