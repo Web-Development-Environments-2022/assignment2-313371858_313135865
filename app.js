@@ -6,6 +6,10 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9148488f7fb9aade5ca729fe169b505796bbf6f0
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -108,7 +112,7 @@ function Draw() {
 			center.y = j * 60 + 30;
 			if (board[i][j] == 2) {
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				context.arc(center.x, center.y, 60, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
