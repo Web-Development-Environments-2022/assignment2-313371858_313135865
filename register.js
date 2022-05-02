@@ -1,4 +1,6 @@
-// Wait for the DOM to be ready
+
+
+var test = ['test']
 $(function() {
     // Initialize form validation on the registration form.
     // It has the name attribute "registration"
@@ -34,7 +36,13 @@ $(function() {
       // Make sure the form is submitted to the destination defined
       // in the "action" attribute of the form when valid
       submitHandler: function(form) {
-        form.submit();
+        console.log(test)
+        test.push(email.value)
+        console.log(test)
       }
     });
   });
+
+  function sumbit(){
+    console.log("test")
+  }
