@@ -19,6 +19,7 @@ function alternateDivs(div_id) {
     }
 }
 
+
 function validate_login(){
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
