@@ -21,13 +21,12 @@ function alternateDivs(div_id) {
 
 
 function validate_login(){
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    var username = document.getElementById("usernameLogin").value;
+    var password = document.getElementById("passwordLogin").value;
     //user window.localStorage.getItem('user');
     if (username == "k"){ // TODO: change to search in local storage
         if (password == "k"){
             alternateDivs("Settings")
-
         }
         else{
         alert("Wrong password");
