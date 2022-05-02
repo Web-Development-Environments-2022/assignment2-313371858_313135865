@@ -6,7 +6,6 @@ function alternateDivs(div_id) {
     var x = document.getElementById(div_id);
     if (x.style.display === "none") {
         x.style.display = "block";
-        
         }
     else {
         x.style.display = "none";
@@ -21,12 +20,12 @@ function alternateDivs(div_id) {
 
 
 function validate_login(){
-    var username = document.getElementById("usernameLogin").value;
-    var password = document.getElementById("passwordLogin").value;
-    //user window.localStorage.getItem('user');
-    if (username == "k"){ // TODO: change to search in local storage
-        if (password == "k"){
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    if (username in localStorage)){ // TODO: change to search in local storage
+        if (localStorage.getItem(username)){
             alternateDivs("Settings")
+
         }
         else{
         alert("Wrong password");
