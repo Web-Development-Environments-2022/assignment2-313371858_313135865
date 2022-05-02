@@ -1,5 +1,5 @@
 var divs = 
-    ['Welcome', 'Register', 'Login', 'About'] ;
+    ['Welcome', 'Register', 'Login', 'About', 'Settings'] ;
   
 function alternateDivs(div_id) {
     
@@ -18,3 +18,25 @@ function alternateDivs(div_id) {
         }
     }
 }
+
+function validate_login(){
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    //user window.localStorage.getItem('user');
+    if (username == "k"){ // TODO: change to search in local storage
+        if (password == "k"){
+            alternateDivs("Settings")
+
+        }
+        else{
+        alert("Wrong password");
+        }
+    }
+    else{
+        alert("User name not exist");
+    }
+    document.getElementById("login_form").reset();
+}
+
+
+
