@@ -10,8 +10,7 @@ $(function() {
         email: {
           required: true,
           email: true
-        },
-        password: {
+        }, password: {
           required: true,
           minlength: 5
         }
@@ -22,11 +21,12 @@ $(function() {
         password: {
           required: "Please provide a password",
           minlength: "Your password must be at least 5 characters long"
-        },
+        },  
         email: "Please enter a valid email address"
       },
       submitHandler: function() {
         submit()
+        document.getElementById('Register').style.display = "none"
       }
     });
   });
@@ -34,12 +34,14 @@ $(function() {
   function submit(){
     let username = document.getElementById('firstname')
     let password = document.getElementById('password')
-    if (localStorage.getItem(username.value)){
-      window.alert("Already signed in")
-    }
-    else{
+    if (!localStorage.getItem(username.value)){
       console.log(username.value)
       localStorage.setItem(username,password)
+      window.alert("Successful registration")
+      
+    }
+    else{
+      window.alert("Already signed in")
     }
   }
 })
