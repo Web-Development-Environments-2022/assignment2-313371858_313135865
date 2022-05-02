@@ -20,10 +20,10 @@ function alternateDivs(div_id) {
 
 
 function validate_login(){
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    if (username in localStorage)){ // TODO: change to search in local storage
-        if (localStorage.getItem(username)){
+    var username = document.getElementById("usernameLogin").value;
+    var password = document.getElementById("passwordLogin").value;
+    if (username in localStorage){ // TODO: change to search in local storage
+        if (localStorage.getItem(username)==password){
             alternateDivs("Settings")
 
         }
