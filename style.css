@@ -41,9 +41,8 @@ body {
   margin-right: auto;
   font-family: 'Courier New', monospace;
   font-size: 35px;
-  /* width: 50%; */
-  text-align: center;
-}
+  /* width: 50%; */}
+
 
 .container {
   width: 500px;
