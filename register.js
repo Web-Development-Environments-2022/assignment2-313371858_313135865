@@ -10,9 +10,15 @@ $(function() {
         email: {
           required: true,
           email: true
-        }, password: {
+        },
+        password: {
           required: true,
-          minlength: 5
+          minlength: 6,
+          pwcheck: true   
+
+        },
+        date:{
+          date:true
         }
       },
       messages: {
@@ -20,7 +26,8 @@ $(function() {
         lastname: "Please enter your lastname",
         password: {
           required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long"
+          minlength: "Your password must be at least 5 characters long",
+          pwcheck: "Your password must contain numbers and letters"
         },  
         email: "Please enter a valid email address"
       },
@@ -29,6 +36,10 @@ $(function() {
         document.getElementById('Register').style.display = "none"
       }
     });
+  });
+
+  $.validator.addMethod("pwcheck", function(value) {
+    return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && /[a-z]/.test(value) && /\d/.test(value);
   });
 
   function submit(){
@@ -44,4 +55,6 @@ $(function() {
     }
   }
 })
+
+
 
