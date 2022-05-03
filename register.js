@@ -36,12 +36,12 @@ $(function() {
     let password = document.getElementById('password')
     if (!localStorage.getItem(username.value)){
       console.log(username.value)
-      localStorage.setItem(username,password)
+      localStorage.setItem(username.value,password.value)
       window.alert("Successful registration")
-      
     }
     else{
       window.alert("Already signed in")
     }
   }
 })
+
