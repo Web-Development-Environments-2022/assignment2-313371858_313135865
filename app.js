@@ -7,6 +7,9 @@ var start_time;
 var time_elapsed;
 var interval;
 
+let key_pressed;
+
+
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
@@ -19,6 +22,8 @@ function Start() {
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
+	key_pressed = 0;
+
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -95,6 +100,9 @@ function GetKeyPressed() {
 	if (keysDown[39]) {
 		return 4;
 	}
+	else{
+		return key_pressed;
+	}
 }
 
 function Draw() {
@@ -107,15 +115,7 @@ function Draw() {
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
 			if (board[i][j] == 2) {
-				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
+				draw_packman(center)
 			} else if (board[i][j] == 1) {
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
@@ -131,25 +131,61 @@ function Draw() {
 	}
 }
 
+function draw_packman(center)  {
+	context.beginPath();
+	if (key_pressed == 1){ // UP
+		context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI);
+	}
+	else if (key_pressed == 2){ // DOWN
+		context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI);
+	}
+	else if (key_pressed == 3){ // LEFT
+		context.arc(center.x, center.y, 30, 1.15 * Math.PI,  0.85 * Math.PI);
+	}
+	else if (key_pressed == 4 || key_pressed == 0){ // RIGHT
+		context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI);
+	}
+	context.lineTo(center.x, center.y);
+	context.fillStyle = pac_color; //color
+	context.fill();
+	context.beginPath();
+	if (key_pressed == 1){ // UP
+		context.arc(center.x + 15, center.y + 2, 5, 0, 2 * Math.PI);
+	}
+	else if (key_pressed == 2){ // DOWN
+		context.arc(center.x - 15, center.y + 2, 5, 0, 2 * Math.PI);
+	}
+	else if (key_pressed == 3){ // LEFT
+		context.arc(center.x - 5, center.y - 15, 5, 0, 2 * Math.PI);
+	}
+	else if (key_pressed == 4 || key_pressed == 0){ // RIGHT
+		context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI);
+	}
+	context.fillStyle = "black"; //color
+	context.fill();
+
+}
+
 function UpdatePosition() {
+
 	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	if (x == 1) {
+	key_pressed = GetKeyPressed();
+	if (key_pressed == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
 		}
 	}
-	if (x == 2) {
+	if (key_pressed == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
-	if (x == 3) {
+	if (key_pressed == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
 	}
-	if (x == 4) {
+	if (key_pressed == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
