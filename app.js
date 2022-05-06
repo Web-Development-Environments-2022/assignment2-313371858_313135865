@@ -8,7 +8,29 @@ var time_elapsed;
 var interval;
 
 let key_pressed;
+let pacman;
 
+
+let ghost1 = document.createElement('img');
+ghost1.src = 'src/images/ghost1.png';
+
+let ghost2 = document.createElement('img');
+ghost1.src = 'src/images/ghost2.png';
+
+let ghost3 = document.createElement('img');
+ghost1.src = 'src/images/ghost3.png';
+
+let ghost4 = document.createElement('img');
+ghost1.src = 'src/images/ghost4.png';
+
+let ghostList = [ghost1]
+
+let corners = [ [0,0],[0,9],[9,0],[9,9]  ]
+let numOfGhost;
+let ghostNumFromUser;
+let countGhost = 0;
+let ghostPosition;
+let ghostInterval;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -16,13 +38,25 @@ $(document).ready(function() {
 });
 
 function Start() {
+	window.clearInterval(ghostInterval);
+	
+	
+	packmanLives = 5;
+	
+	ghostNumFromUser = 1;
+	let ghost_remain = ghostNumFromUser;
+
+	countGhost = 0;
+	ghostPosition = [];
+
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
 	var cnt = 100;
-	var food_remain = 50;
 	var pacman_remain = 1;
 	key_pressed = 0;
+	
+	
 
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -59,6 +93,18 @@ function Start() {
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
 	}
+
+	while (ghost_remain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 7 ;
+		ghostPosition.push(emptyCell)
+		ghost_remain--;
+	}
+	ghost_interval = setInterval(UpdateGhost,350);
+	repositionGhost();
+
+	
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -106,6 +152,15 @@ function GetKeyPressed() {
 }
 
 function Draw() {
+	/*
+	1 - 
+	2 - PACMAN
+	3 - 
+	4 - 
+	5 -
+	6 -  
+	7 - GHOST
+	*/
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
@@ -126,6 +181,9 @@ function Draw() {
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
+			}
+			else if (board[i][j] == 7) {
+				draw_ghost(center)
 			}
 		}
 	}
@@ -166,6 +224,17 @@ function draw_packman(center)  {
 
 }
 
+
+function draw_ghost(center) {
+	context.beginPath();
+	context.drawImage(ghost1, center.x-20 , center.y-20 , 50, 50);
+	context.fill();
+	if (countGhost == ghostNumFromUser-1){
+		countGhost = 0}
+	else {
+		countGhost++}
+}
+
 function UpdatePosition() {
 
 	board[shape.i][shape.j] = 0;
@@ -193,16 +262,146 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
+	var cell_value = board[shape.i][shape.j];
+
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
+
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
+	if (cell_value == 7 || board[shape.i][shape.j]  == 7 ) {
+		score = score - 10
+		Draw();
+		repositionGhost();
+	}
+	Draw();
 	if (score == 50) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
-	} else {
-		Draw();
 	}
+}
+
+
+
+function repositionGhost(){
+	let i = 0
+	for (i = 0; i < ghostNumFromUser; i++){
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0
+		ghostPosition[i][0] = corners[i][0]
+		ghostPosition[i][1] = corners[i][1]
+
+		board[corners[i][0]][corners[i][1]] = 7
+	}
+	var emptyCell = findRandomEmptyCell(board);
+	board[shape.i][shape.j] = 0
+	shape.i = emptyCell[0]
+	shape.j = emptyCell[1]
+	pacX = shape.i
+	pacY = shape.j
+	board[shape.i][shape.j] = 2
+	Draw();
+}
+
+
+
+function UpdateGhost() {
+
+	var i;
+	for (i = 0; i < ghostNumFromUser; i++){
+		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2 ) {
+			score = score -10
+			repositionGhost();
+			break;
+		}
+		let GhostX = ghostPosition[i][0];
+		let GhostY = ghostPosition[i][1];
+		
+		let new_position = manhathanDistance(GhostX , GhostY);
+
+		if (board[ghostPosition[i][0]][ghostPosition[i][1]] != 7){
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = board[ghostPosition[i][0]][ghostPosition[i][1]];
+		}
+		else{
+			board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+		}
+
+		if (new_position == "up") {
+				ghostPosition[i][1] = ghostPosition[i][1] - 1;
+			}
+		if (new_position == "down") {
+				ghostPosition[i][1] = ghostPosition[i][1] + 1;;
+			}
+			
+		if (new_position == "left") {
+				ghostPosition[i][0] = ghostPosition[i][0] - 1;
+			}
+		if (new_position == "right") {
+				ghostPosition[i][0] = ghostPosition[i][0] + 1;
+			}
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = 7;
+
+	}
+
+	Draw();
+	
+}
+
+function manhathanDistance(ghost_X, ghost_Y){
+		let manDis = 0;
+		let bestmove = 1500;
+		let newPosition = "";
+		let randPos = Math.random();
+		let direction = []
+
+		if (ghost_Y > 0 && board[ghost_X][ghost_Y - 1] != 4 && board[ghost_X][ghost_Y - 1] != 7) {
+			manDis = Math.abs(pacX - ghost_X) + Math.abs(pacY - ghost_Y + 1)
+			direction.push("up")
+
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = "up"
+			}
+		}
+	
+		if (ghost_Y < 9 && board[ghost_X][ghost_Y + 1] != 4 && board[ghost_X][ghost_Y - 1] != 7 ) {
+			manDis = Math.abs(pacX - ghost_X) + Math.abs(pacY - ghost_Y - 1)
+			direction.push("down")
+
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = "down"
+
+			}
+		}
+		
+	
+		if (ghost_X > 0 && board[ghost_X - 1][ghost_Y] != 4 && board[ghost_X - 1][ghost_Y] != 7) {
+			manDis = Math.abs(pacX - ghost_X + 1) + Math.abs(pacY - ghost_Y)
+			direction.push("left")
+
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = "left"
+
+			}
+		}
+	
+		if (ghost_X < 9 && board[ghost_X + 1][ghost_Y] != 4 && board[ghost_X + 1][ghost_Y] != 7 && board[ghost_X + 1][ghost_Y] != 30) {
+			manDis = Math.abs(pacX - ghost_X - 1) + Math.abs(pacY - ghost_Y)
+			direction.push("right")
+
+			if (manDis < bestmove){
+				bestmove = manDis
+				newPosition = "right"
+
+			}
+		}
+
+		if (randPos > 0.75){
+			newPosition = direction[Math.floor(Math.random() * direction.length)]
+		}
+
+		return newPosition
 }
