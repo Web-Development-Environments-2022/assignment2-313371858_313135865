@@ -1,32 +1,30 @@
 var context;
-var shape = new Object();
+var pacman = new Object();
 var board;
 var score;
-var pac_color;
+var pac_color = "yellow";
 var start_time;
 var time_elapsed;
 var interval;
+let food_remain = 50
 
-let key_pressed;
-let pacman;
+let key_pressed; 
 
 
 let ghost1 = document.createElement('img');
 ghost1.src = 'src/images/ghost1.png';
 
 let ghost2 = document.createElement('img');
-ghost1.src = 'src/images/ghost2.png';
+ghost2.src = 'src/images/ghost2.png';
 
 let ghost3 = document.createElement('img');
-ghost1.src = 'src/images/ghost3.png';
+ghost3.src = 'src/images/ghost3.png';
 
 let ghost4 = document.createElement('img');
-ghost1.src = 'src/images/ghost4.png';
+ghost4.src = 'src/images/ghost4.png';
 
-let ghostList = [ghost1]
-
+let ghostList = [ghost1, ghost2]
 let corners = [ [0,0],[0,9],[9,0],[9,9]  ]
-let numOfGhost;
 let ghostNumFromUser;
 let countGhost = 0;
 let ghostPosition;
@@ -40,10 +38,9 @@ $(document).ready(function() {
 function Start() {
 	window.clearInterval(ghostInterval);
 	
-	
 	packmanLives = 5;
 	
-	ghostNumFromUser = 1;
+	ghostNumFromUser = 2;
 	let ghost_remain = ghostNumFromUser;
 
 	countGhost = 0;
@@ -51,12 +48,9 @@ function Start() {
 
 	board = new Array();
 	score = 0;
-	pac_color = "yellow";
 	var cnt = 100;
 	var pacman_remain = 1;
 	key_pressed = 0;
-	
-	
 
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -77,8 +71,8 @@ function Start() {
 					food_remain--;
 					board[i][j] = 1;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
-					shape.i = i;
-					shape.j = j;
+					pacman.i = i;
+					pacman.j = j;
 					pacman_remain--;
 					board[i][j] = 2;
 				} else {
@@ -102,8 +96,6 @@ function Start() {
 	}
 	ghost_interval = setInterval(UpdateGhost,350);
 	repositionGhost();
-
-	
 
 	keysDown = {};
 	addEventListener(
@@ -153,10 +145,10 @@ function GetKeyPressed() {
 
 function Draw() {
 	/*
-	1 - 
+	1 - FOOD
 	2 - PACMAN
 	3 - 
-	4 - 
+	4 - WALL
 	5 -
 	6 -  
 	7 - GHOST
@@ -227,55 +219,61 @@ function draw_packman(center)  {
 
 function draw_ghost(center) {
 	context.beginPath();
+	// TODO: get as param
 	context.drawImage(ghost1, center.x-20 , center.y-20 , 50, 50);
 	context.fill();
+
+	// TODO: WTF
 	if (countGhost == ghostNumFromUser-1){
-		countGhost = 0}
+		countGhost = 0
+	}
 	else {
-		countGhost++}
+		countGhost++
+	}
 }
 
 function UpdatePosition() {
 
-	board[shape.i][shape.j] = 0;
+	board[pacman.i][pacman.j] = 0;
 	key_pressed = GetKeyPressed();
 	if (key_pressed == 1) {
-		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
-			shape.j--;
+		if (pacman.j > 0 && board[pacman.i][pacman.j - 1] != 4) {
+			pacman.j--;
 		}
 	}
 	if (key_pressed == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
-			shape.j++;
+		if (pacman.j < 9 && board[pacman.i][pacman.j + 1] != 4) {
+			pacman.j++;
 		}
 	}
 	if (key_pressed == 3) {
-		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
-			shape.i--;
+		if (pacman.i > 0 && board[pacman.i - 1][pacman.j] != 4) {
+			pacman.i--;
 		}
 	}
 	if (key_pressed == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
-			shape.i++;
+		if (pacman.i < 9 && board[pacman.i + 1][pacman.j] != 4) {
+			pacman.i++;
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
+	if (board[pacman.i][pacman.j] == 1) {
 		score++;
 	}
-	var cell_value = board[shape.i][shape.j];
+	var cell_value = board[pacman.i][pacman.j];
 
-	board[shape.i][shape.j] = 2;
+	board[pacman.i][pacman.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (cell_value == 7 || board[shape.i][shape.j]  == 7 ) {
+	if (cell_value == 7) {
 		score = score - 10
 		Draw();
 		repositionGhost();
 	}
+	// TODO: draw happens twice if cell value == 7?
 	Draw();
 	if (score == 50) {
 		window.clearInterval(interval);
@@ -295,12 +293,10 @@ function repositionGhost(){
 		board[corners[i][0]][corners[i][1]] = 7
 	}
 	var emptyCell = findRandomEmptyCell(board);
-	board[shape.i][shape.j] = 0
-	shape.i = emptyCell[0]
-	shape.j = emptyCell[1]
-	pacX = shape.i
-	pacY = shape.j
-	board[shape.i][shape.j] = 2
+	board[pacman.i][pacman.j] = 0
+	pacman.i = emptyCell[0]
+	pacman.j = emptyCell[1]
+	board[pacman.i][pacman.j] = 2
 	Draw();
 }
 
@@ -318,90 +314,107 @@ function UpdateGhost() {
 		let GhostX = ghostPosition[i][0];
 		let GhostY = ghostPosition[i][1];
 		
-		let new_position = manhathanDistance(GhostX , GhostY);
+		let direction = chooseDirection(GhostX , GhostY);
 
-		if (board[ghostPosition[i][0]][ghostPosition[i][1]] != 7){
-		board[ghostPosition[i][0]][ghostPosition[i][1]] = board[ghostPosition[i][0]][ghostPosition[i][1]];
+		// TODO: not sure what this is
+		// if (board[ghostPosition[i][0]][ghostPosition[i][1]] != 7){
+		// 	board[ghostPosition[i][0]][ghostPosition[i][1]] = board[ghostPosition[i][0]][ghostPosition[i][1]];
+		// }
+
+		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+
+		if (direction == "up") {
+			ghostPosition[i][1] = ghostPosition[i][1] - 1;
 		}
-		else{
-			board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+		if (direction == "down") {
+			ghostPosition[i][1] = ghostPosition[i][1] + 1;
+		}
+		if (direction == "left") {
+			ghostPosition[i][0] = ghostPosition[i][0] - 1;
+		}
+		if (direction == "right") {
+			ghostPosition[i][0] = ghostPosition[i][0] + 1;
 		}
 
-		if (new_position == "up") {
-				ghostPosition[i][1] = ghostPosition[i][1] - 1;
-			}
-		if (new_position == "down") {
-				ghostPosition[i][1] = ghostPosition[i][1] + 1;;
-			}
-			
-		if (new_position == "left") {
-				ghostPosition[i][0] = ghostPosition[i][0] - 1;
-			}
-		if (new_position == "right") {
-				ghostPosition[i][0] = ghostPosition[i][0] + 1;
-			}
 		board[ghostPosition[i][0]][ghostPosition[i][1]] = 7;
-
 	}
 
 	Draw();
 	
 }
 
-function manhathanDistance(ghost_X, ghost_Y){
-		let manDis = 0;
-		let bestmove = 1500;
-		let newPosition = "";
+
+function isPossibleStep(ghostX, ghostY){
+	if (ghostX < 0 || ghostX > 9 || ghostY < 0  || ghostX > 9){
+		return false;
+	}
+
+	board_value = board[ghostX][ghostY]
+
+	if (board_value == 4 || board_value == 7){
+		return false
+	}
+
+	return true
+}
+
+
+function calcDistance(ghostX, ghostY){
+	return Math.abs(pacman.i - ghostX) + Math.abs(pacman.j - ghostY)
+}
+
+
+function chooseDirection(ghostX, ghostY){
+		let distance;
+		let minimalDistance = 100;
+		let direction;
 		let randPos = Math.random();
-		let direction = []
+		let validSteps = []
 
-		if (ghost_Y > 0 && board[ghost_X][ghost_Y - 1] != 4 && board[ghost_X][ghost_Y - 1] != 7) {
-			manDis = Math.abs(pacX - ghost_X) + Math.abs(pacY - ghost_Y + 1)
-			direction.push("up")
+		// up
+		if (isPossibleStep(ghostX, ghostY-1)){
+			validSteps.push("up");
+			distance = calcDistance(ghostX, ghostY-1);
 
-			if (manDis < bestmove){
-				bestmove = manDis
-				newPosition = "up"
+			if (distance < minimalDistance){
+				minimalDistance = distance;
+				direction = "up"
 			}
 		}
-	
-		if (ghost_Y < 9 && board[ghost_X][ghost_Y + 1] != 4 && board[ghost_X][ghost_Y - 1] != 7 ) {
-			manDis = Math.abs(pacX - ghost_X) + Math.abs(pacY - ghost_Y - 1)
-			direction.push("down")
+		// down
+		if (isPossibleStep(ghostX, ghostY+1)){
+			validSteps.push("down");
+			distance = calcDistance(ghostX, ghostY+1);
 
-			if (manDis < bestmove){
-				bestmove = manDis
-				newPosition = "down"
-
+			if (distance < minimalDistance){
+				minimalDistance = distance;
+				direction = "down"
 			}
 		}
-		
-	
-		if (ghost_X > 0 && board[ghost_X - 1][ghost_Y] != 4 && board[ghost_X - 1][ghost_Y] != 7) {
-			manDis = Math.abs(pacX - ghost_X + 1) + Math.abs(pacY - ghost_Y)
-			direction.push("left")
+		// left
+		if (isPossibleStep(ghostX-1, ghostY)){
+			validSteps.push("left");
+			distance = calcDistance(ghostX-1, ghostY);
 
-			if (manDis < bestmove){
-				bestmove = manDis
-				newPosition = "left"
-
+			if (distance < minimalDistance){
+				minimalDistance = distance;
+				direction = "left"
 			}
 		}
-	
-		if (ghost_X < 9 && board[ghost_X + 1][ghost_Y] != 4 && board[ghost_X + 1][ghost_Y] != 7 && board[ghost_X + 1][ghost_Y] != 30) {
-			manDis = Math.abs(pacX - ghost_X - 1) + Math.abs(pacY - ghost_Y)
-			direction.push("right")
+		// right
+		if (isPossibleStep(ghostX+1, ghostY)){
+			validSteps.push("right");
+			distance = calcDistance(ghostX+1, ghostY);
 
-			if (manDis < bestmove){
-				bestmove = manDis
-				newPosition = "right"
-
+			if (distance < minimalDistance){
+				minimalDistance = distance;
+				direction = "right"
 			}
 		}
 
 		if (randPos > 0.75){
-			newPosition = direction[Math.floor(Math.random() * direction.length)]
+			direction = validSteps[Math.floor(Math.random() * validSteps.length)]
 		}
 
-		return newPosition
+		return direction
 }
