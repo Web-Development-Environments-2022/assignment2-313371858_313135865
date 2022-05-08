@@ -6,6 +6,10 @@ var pac_color = "yellow";
 var start_time;
 var time_elapsed;
 var interval;
+var upKey;
+var downKey;
+var leftKey;
+var rightKey;
 let food_remain = 50
 
 let key_pressed; 
@@ -23,24 +27,29 @@ ghost3.src = 'src/images/ghost3.png';
 let ghost4 = document.createElement('img');
 ghost4.src = 'src/images/ghost4.png';
 
-let ghostList = [ghost1, ghost2]
+let ghostList = [ghost1, ghost2,ghost3,ghost4]
 let corners = [ [0,0],[0,9],[9,0],[9,9]  ]
 let ghostNumFromUser;
 let countGhost = 0;
 let ghostPosition;
 let ghostInterval;
 
-$(document).ready(function() {
+// $(document).ready(function() {
+// 	context = canvas.getContext("2d");
+// 	Start();
+// });
+
+function startGame(){
 	context = canvas.getContext("2d");
 	Start();
-});
+}
 
 function Start() {
 	window.clearInterval(ghostInterval);
 	
 	packmanLives = 5;
 	
-	ghostNumFromUser = 2;
+	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
 
 	countGhost = 0;
@@ -418,3 +427,5 @@ function chooseDirection(ghostX, ghostY){
 
 		return direction
 }
+
+	

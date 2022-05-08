@@ -8,6 +8,8 @@
 		<script type="text/javascript" src="./page.js"></script>
 		<script type="text/javascript" src="./login.js"></script>
 		<script type="text/javascript" src="./register.js"></script>
+		<script type="text/javascript" src="./settings.js"></script>
+		<script type="text/javascript" src="./modal.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 	</head>
 
@@ -21,8 +23,9 @@
 
 			<a href="#" onclick="alternateDivs('Welcome');">Welcome</a>
 			<a href="#" onclick="alternateDivs('Register');">Register</a>
+			<a href="#" onclick="alternateDivs('Settings');">Settings</a>
 			<a href="#" onclick="alternateDivs('Login');">Login</a>
-			<a href="#" onclick="alternateDivs('About');">About</a>
+			<a href="#" onclick="openModal();">About</a>
 			<a href="#" onclick="alternateDivs('Game');">debugging the GAME</a>
 		
 		</div>
@@ -51,7 +54,6 @@
 				  <label for="password">Password</label>
 				  <input type="password" name="password" id="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
 					
-
 				  <label for="date">Date</label>
 				  <input type="date" name="date" id="date">
 
@@ -73,13 +75,53 @@
 				</div>
 			  </form>
 		</div>
-		<div id = "About" style="display:none;">
-			TEST ABOUT
-		</div>
 
+
+		<div id = "Modal" style="display:block;">
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+			
+			  <!-- Modal content -->
+			  <div class="modal-content">
+				<span class="close">&times;</span>
+				<p>This game made by Jonathan and Tamar</p>
+			  </div>
+			
+			</div>
+		</div>
 		<div id ="Settings" style="display:none;">
 			Display Settings
-			<button class = "button" onclick="alternateDivs('Game');">Let's Start!</button>
+			<div class="container" >
+				<div class = "settings">
+				<div id="key-settings">
+							<input id="buttonUp" class="choose-keyboard" type="button" value="⇧" onclick="chooseKey(`up`)" >
+							<input id="buttonLeft" class="choose-keyboard" type="button" value="⇦" onclick="chooseKey(`left`)" >
+							<input id="buttonRight" class="choose-keyboard" type="button" value="➪" onclick="chooseKey(`right`)" >
+							<input id="buttonDown" class="choose-keyboard" type="button" value="⇩" onclick="chooseKey(`down`)" >
+				</div>
+				number of balls: <br/>
+				<input type="range" id="number_of_balls" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
+				<output>50</output><br/>
+				<p>5 point dots  : (Choose color)</p>
+				<input type="color" id="5_color" value="#FF726f"/>
+                <p>15 point dots  : (Choose color)</p>
+                <input type="color" id="15_color" value="#88C0D3"/>
+                <p>25 point dots : (Choose color)</p>
+                <input type="color" id="25_color" value="#51C251"/>
+				game time: <br/>
+				<input type="range" id="amount_of_time" value="60" min="60" max="120" oninput="this.nextElementSibling.value = this.value">
+				<output>60</output><br/>
+				number of ghosts: <br/>
+				<input type="range" id="number_of_ghosts" value="1" min="1" max="4" oninput="this.nextElementSibling.value = this.value">
+				<output>1</output><br/>
+                <button class = "bn54" type="button" onclick="random_settings()">Random Settings</button>
+                <hr>
+                <button class = "button" onclick="initSettings()">Let's Start!</button>
+                </div>
+				<br>
+            </div>
+		</div>
+			
 
 		</div>
 		<div id = "Game" style="display:none;">
