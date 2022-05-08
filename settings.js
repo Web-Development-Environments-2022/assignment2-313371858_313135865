@@ -5,45 +5,66 @@ function initSettings(){
     color1 = document.getElementById("5_color").value;
     color2 = document.getElementById("15_color").value;
     color3 = document.getElementById("25_color").value;
-    // Buttons
-    // upKey = document.getElementById("up_button").value;
-    // downKey = document.getElementById("down_button").value;
-    // leftKey = document.getElementById("left_button").value;
-    // rightKey = document.getElementById("right_button").value;
     startGame()
     alternateDivs('Game');
 }
 
 
-function chooseKey(key){
-    $(document).keydown(function(event){
+keys = [];
+
+function chooseKeyUp(){
+    $(document).on('keydown',function(event){
         key_pressed = event.keyCode;
-        switch (key){
-            case "up":
-                chosen_key_up=  DisplaychosenKey(key_pressed);
-                chosen_key_code_up = key_pressed;
-                document.getElementById("buttonUp").value = chosen_key_up;
-                upKey = chosen_key_code_up;
-                downKey = 40;
-                leftKey = 37;
-                rightKey = 39;
-            }
-        });
+        document.getElementById("buttonUp").value = displayKey(key_pressed);
+        upKey = key_pressed;
+        $(document).off('keydown'); 
+        })
+
 }
 
-   
-// let chosen_key_code_up = 38;
-// let downKey = 40;
-// let leftKey = 37;
-// let rightKey = 39;
-let chosen_keys = {}
+function chooseKeyDown(){
+    $(document).on('keydown',function(event){
+        key_pressed = event.keyCode;
+        document.getElementById("buttonDown").value =  displayKey(key_pressed);
+        downKey = key_pressed;
+        $(document).off('keydown');
+        })
+
+}
+
+function chooseKeyLeft(){
+    $(document).on('keydown',function(event){
+        key_pressed = event.keyCode;
+        document.getElementById("buttonLeft").value =  displayKey(key_pressed);
+        leftKey = key_pressed;
+        $(document).off('keydown');
+        })
+
+}
+
+function chooseKeyRight(){
+    $(document).on('keydown',function(event){
+        key_pressed = event.keyCode;
+        document.getElementById("buttonRight").value =  displayKey(key_pressed);
+        rightKey = key_pressed;
+        $(document).off('keydown');
+        })
+
+}
 
 
-function DisplaychosenKey(key_pressed)
+function displayKey(key_pressed)
 {
-	if(key_pressed == 38) return "⇧";
-	else if(key_pressed == 40) return "⇩";
-	else if(key_pressed == 39) return "➪";
-	else if(key_pressed == 37) return "⇦";
-	return String.fromCharCode(event.keyCode);
+    switch(key_pressed){
+        case 38:
+            return "⇧";
+        case 40:
+            return "⇩";
+        case 39:
+            return "➪";
+        case 37:
+            return "⇦";
+        default:
+            return String.fromCharCode(event.keyCode);
+    }
 }
