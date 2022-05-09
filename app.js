@@ -14,6 +14,7 @@ var color5;
 var color15;
 var color25;
 let food_remain = 50
+let board_wo_ghost;
 
 let key_pressed; 
 
@@ -64,6 +65,7 @@ function Start() {
 	ghostPosition = [];
 
 	board = new Array();
+	board_wo_ghost = new Array();
 	score = 0;
 	var cnt = 100;
 	var pacman_remain = 1;
@@ -72,6 +74,7 @@ function Start() {
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
+		board_wo_ghost[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (food_remain == 0){
@@ -113,6 +116,7 @@ function Start() {
 				}
 				cnt--;
 			}
+			board_wo_ghost[i][j] = board[i][j]
 		}
 	}
 	// while (food_remain > 0) {
@@ -120,7 +124,7 @@ function Start() {
 	// 	board[emptyCell[0]][emptyCell[1]] = 1;
 	// 	food_remain--;
 	// }
-
+	//board_wo_ghost = board;
 	while (ghost_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 7 ;
@@ -281,6 +285,7 @@ function draw_ghost(center) {
 function UpdatePosition() {
 
 	board[pacman.i][pacman.j] = 0;
+	board_wo_ghost[pacman.i][pacman.j] = 0;
 	key_pressed = GetKeyPressed();
 	if (key_pressed == 1) {
 		if (pacman.j > 0 && board[pacman.i][pacman.j - 1] != 4) {
@@ -314,6 +319,7 @@ function UpdatePosition() {
 	var cell_value = board[pacman.i][pacman.j];
 
 	board[pacman.i][pacman.j] = 2;
+	board_wo_ghost[pacman.i][pacman.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 
@@ -346,9 +352,11 @@ function repositionGhost(){
 	}
 	var emptyCell = findRandomEmptyCell(board);
 	board[pacman.i][pacman.j] = 0
+	board_wo_ghost[pacman.i][pacman.j] = 0
 	pacman.i = emptyCell[0]
 	pacman.j = emptyCell[1]
 	board[pacman.i][pacman.j] = 2
+	board_wo_ghost[pacman.i][pacman.j] = 2
 	Draw();
 }
 
@@ -369,11 +377,12 @@ function UpdateGhost() {
 		let direction = chooseDirection(GhostX , GhostY);
 
 		// TODO: not sure what this is
-		// if (board[ghostPosition[i][0]][ghostPosition[i][1]] != 7){
-		// 	board[ghostPosition[i][0]][ghostPosition[i][1]] = board[ghostPosition[i][0]][ghostPosition[i][1]];
-		// }
-
-		board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+		if (board_wo_ghost[ghostPosition[i][0]][ghostPosition[i][1]] != 7){
+			board[ghostPosition[i][0]][ghostPosition[i][1]] = board_wo_ghost[ghostPosition[i][0]][ghostPosition[i][1]];
+		}
+		else{
+			board[ghostPosition[i][0]][ghostPosition[i][1]] = 0;
+		}
 
 		if (direction == "up") {
 			ghostPosition[i][1] = ghostPosition[i][1] - 1;
