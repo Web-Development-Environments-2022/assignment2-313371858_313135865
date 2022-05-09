@@ -13,12 +13,7 @@ var rightKey = 39
 var color5;
 var color15;
 var color25;
-
 let food_remain = 50
-
-let food_5 = food_remain*0.6
-let food_15 = food_remain*0.3
-let food_25 = food_remain*0.1
 
 let key_pressed; 
 
@@ -53,6 +48,11 @@ function startGame(){
 }
 
 function Start() {
+
+	food_5 = food_remain*0.6
+	food_15 = food_remain*0.3
+	food_25 = food_remain*0.1
+
 	window.clearInterval(ghostInterval);
 	
 	packmanLives = 5;
@@ -87,16 +87,18 @@ function Start() {
 				board[i][j] = 4;
 			} else {
 				var randomNum = Math.random();
-				if (randomNum <= (1.0 * food_5) / cnt) {
-					food_5--;
-					
-					board[i][j] = 5;}
 
-				else if (randomNum <= (1.0 * food_25) / cnt) {
+				if (randomNum <= (1.0 * food_25) / cnt) {
 					food_25--;
 					
 					board[i][j] = 25;
 				}
+				else if (randomNum <= (1.0 * food_5) / cnt) {
+					food_5--;
+					
+					board[i][j] = 5;}
+
+				
 				else if (randomNum <= (1.0 * food_15) / cnt) {
 					food_15--;
 					
@@ -325,7 +327,7 @@ function UpdatePosition() {
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (score == 50) {
+	if (score == 400) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	}
