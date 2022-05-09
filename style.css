@@ -42,9 +42,12 @@ body {
   font-family: 'Courier New', monospace;
   font-size: 35px;
   text-align: center;
+  background-color: #e4a165;
 }
 
-
+.settings{
+    text-align: center;
+}
 
 .mainMenu {
   display: block;
@@ -78,6 +81,7 @@ form button {
   margin-bottom: 3px;
   display: block;
   width: 100%;
+  color: #e67e22;
 }
 form input {
   height: 25px;
@@ -146,4 +150,35 @@ form .error {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+
+input[type=range]{
+  -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: goldenrod;
+  margin-top: -4px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
 }
