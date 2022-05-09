@@ -1,3 +1,5 @@
+
+
 function initSettings(){
     numberOfBalls = document.getElementById("number_of_balls").value;
     ghostNumFromUser = document.getElementById("number_of_ghosts").value;

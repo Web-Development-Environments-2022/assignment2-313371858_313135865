@@ -6,10 +6,10 @@ var pac_color = "yellow";
 var start_time;
 var time_elapsed;
 var interval;
-var upKey;
-var downKey;
-var leftKey;
-var rightKey;
+var upKey = 38
+var downKey = 40
+var leftKey = 37
+var rightKey = 39
 let food_remain = 50
 
 let key_pressed; 
