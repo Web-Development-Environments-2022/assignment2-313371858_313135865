@@ -10,7 +10,15 @@ var upKey = 38
 var downKey = 40
 var leftKey = 37
 var rightKey = 39
+var color5;
+var color15;
+var color25;
+
 let food_remain = 50
+
+let food_5 = food_remain*0.6
+let food_15 = food_remain*0.3
+let food_25 = food_remain*0.1
 
 let key_pressed; 
 
@@ -51,7 +59,7 @@ function Start() {
 	
 	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
-
+	
 	countGhost = 0;
 	ghostPosition = [];
 
@@ -66,6 +74,9 @@ function Start() {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
+			if (food_remain == 0){
+				break
+			}
 			if (
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
@@ -76,10 +87,21 @@ function Start() {
 				board[i][j] = 4;
 			} else {
 				var randomNum = Math.random();
-				if (randomNum <= (1.0 * food_remain) / cnt) {
-					food_remain--;
-					board[i][j] = 1;
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
+				if (randomNum <= (1.0 * food_5) / cnt) {
+					food_5--;
+					
+					board[i][j] = 5;}
+
+				else if (randomNum <= (1.0 * food_25) / cnt) {
+					food_25--;
+					
+					board[i][j] = 25;
+				}
+				else if (randomNum <= (1.0 * food_15) / cnt) {
+					food_15--;
+					
+					board[i][j] = 15;}
+				 else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt & pacman_remain == 1) {
 					pacman.i = i;
 					pacman.j = j;
 					pacman_remain--;
@@ -91,11 +113,11 @@ function Start() {
 			}
 		}
 	}
-	while (food_remain > 0) {
-		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
-		food_remain--;
-	}
+	// while (food_remain > 0) {
+	// 	var emptyCell = findRandomEmptyCell(board);
+	// 	board[emptyCell[0]][emptyCell[1]] = 1;
+	// 	food_remain--;
+	// }
 
 	while (ghost_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
@@ -172,12 +194,25 @@ function Draw() {
 			center.y = j * 60 + 30;
 			if (board[i][j] == 2) {
 				draw_packman(center)
-			} else if (board[i][j] == 1) {
+			} else if (board[i][j] == 5) {
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.fillStyle = color5; //color
 				context.fill();
-			} else if (board[i][j] == 4) {
+			}
+			else if (board[i][j] == 15) {
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = color15; //color
+				context.fill();
+			}
+			else if (board[i][j] == 25) {
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = color25; //color
+				context.fill();
+			}
+			else if (board[i][j] == 4) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
@@ -229,7 +264,7 @@ function draw_packman(center)  {
 function draw_ghost(center) {
 	context.beginPath();
 	// TODO: get as param
-	context.drawImage(ghost1, center.x-20 , center.y-20 , 50, 50);
+	context.drawImage(ghost2, center.x-20 , center.y-20 , 50, 50);
 	context.fill();
 
 	// TODO: WTF
@@ -265,8 +300,14 @@ function UpdatePosition() {
 			pacman.i++;
 		}
 	}
-	if (board[pacman.i][pacman.j] == 1) {
-		score++;
+	if (board[pacman.i][pacman.j] == 5) {
+		score+= 5;
+	}
+	else if (board[pacman.i][pacman.j] == 15) {
+		score+=15;
+	}
+	else if (board[pacman.i][pacman.j] == 25) {
+		score+=25;
 	}
 	var cell_value = board[pacman.i][pacman.j];
 

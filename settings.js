@@ -1,12 +1,12 @@
 
 
 function initSettings(){
-    numberOfBalls = document.getElementById("number_of_balls").value;
+    food_remain = document.getElementById("number_of_balls").value;
     ghostNumFromUser = document.getElementById("number_of_ghosts").value;
     // Colors.
-    color1 = document.getElementById("5_color").value;
-    color2 = document.getElementById("15_color").value;
-    color3 = document.getElementById("25_color").value;
+    color5 = document.getElementById("5_color").value;
+    color15 = document.getElementById("15_color").value;
+    color25 = document.getElementById("25_color").value;
     startGame()
     alternateDivs('Game');
 }
