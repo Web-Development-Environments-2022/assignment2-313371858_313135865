@@ -89,25 +89,32 @@
 			
 			</div>
 		</div>
-		<div id ="Settings" style="display:none;">
-			Display Settings
+		<div id ="Settings" style="display:none;">	
 			<div class="container" >
 				<div class = "settings">
+					Map keys: <br/>
 					<div id="keys settings">
 							<input id="buttonUp" class="choose-keyboard" type="button" value="⇧" onclick="chooseKeyUp()"  >
 							<input id="buttonLeft" class="choose-keyboard" type="button" value="⇦" onclick="chooseKeyLeft()"  >
 							<input id="buttonRight" class="choose-keyboard" type="button" value="➪" onclick="chooseKeyRight()"  >
 							<input id="buttonDown" class="choose-keyboard" type="button" value="⇩" onclick="chooseKeyDown()"  >
 					</div>
-					number of balls: <br/>
+					<br/>
+					Amount of balls: <br/>
 					<input type="range" id="number_of_balls" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
 					<output>50</output><br/>
+					<br/>
 					<p>5 point dots  : (Choose color)</p>
 					<input type="color" id="5_color" value="#FF726f"/>
+					<br/>
+					<br/>
 					<p>15 point dots  : (Choose color)</p>
 					<input type="color" id="15_color" value="#88C0D3"/>
+					<br/>
+					<br/>
 					<p>25 point dots : (Choose color)</p>
 					<input type="color" id="25_color" value="#51C251"/><br/>
+					<br/>
 					Game length: <br/>
 					<input type="range" id="amount_of_time" value="60" min="60" max="120" oninput="this.nextElementSibling.value = this.value">
 					<output>60</output><br/>
