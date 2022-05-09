@@ -93,6 +93,14 @@ form input {
   box-sizing: border-box;
 }
 
+
+canvas {
+  padding: 0;
+  margin: auto;
+  display: block;
+  
+}
+
 form button {
   height: 30px;
   line-height: 30px;
@@ -145,6 +153,7 @@ form .error {
   font-size: 28px;
   font-weight: bold;
 }
+
 
 .close:hover,
 .close:focus {
