@@ -54,9 +54,9 @@ function Start() {
 	food_25 = food_remain*0.1
 
 	window.clearInterval(ghostInterval);
-	
+
+
 	packmanLives = 5;
-	
 	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
 	
@@ -145,7 +145,7 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	interval = setInterval(UpdatePosition, 300);
 }
 
 function findRandomEmptyCell(board) {
@@ -329,10 +329,10 @@ function UpdatePosition() {
 	Draw();
 	if (score == 400) {
 		window.clearInterval(interval);
+		window.clearInterval(ghostInterval);
 		window.alert("Game completed");
 	}
 }
-
 
 
 function repositionGhost(){
@@ -470,5 +470,3 @@ function chooseDirection(ghostX, ghostY){
 
 		return direction
 }
-
-	
