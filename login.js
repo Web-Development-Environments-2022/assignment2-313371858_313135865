@@ -1,7 +1,7 @@
 
 function validate_login(){
-    username = document.getElementById("usernameLogin").value;
-    password = document.getElementById("passwordLogin").value;
+    var username = document.getElementById("usernameLogin").value;
+    var password = document.getElementById("passwordLogin").value;
     if (username in localStorage){
         if (localStorage.getItem(username)==password){
             alternateDivs("Settings")
