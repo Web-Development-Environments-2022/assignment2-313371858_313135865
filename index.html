@@ -67,10 +67,10 @@
 				<div class="container">
 				<h2 class="title">Login</h2>
 				  <label><b>Username</b></label>
-				  <input id = "usernameLogin" type="text" placeholder="Enter Username" required>
+				  <input id = "usernameLogin" type="text" placeholder="Enter Username" >
 			  
 				  <label><b>Password</b></label>
-				  <input id = "passwordLogin" type="password" placeholder="Enter Password" required>
+				  <input id = "passwordLogin" type="password" placeholder="Enter Password" >
 				  <button type="submit" class = "button-42" onclick="validate_login()">Login</button>
 				</div>
 			  </form>
@@ -128,6 +128,10 @@
 
 		</div>
 		<div id = "Game" style="display:none;" >
+			<div id="user">
+				<label for="username">User name:</label>
+				<input id="username" class= "liveData" type="text" />
+			</div>
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
 				<input id="lblScore" class= "liveData" type="text" />

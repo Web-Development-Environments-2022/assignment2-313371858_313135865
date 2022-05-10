@@ -15,6 +15,7 @@ var color15;
 var color25;
 let food_remain = 50
 let board_wo_ghost;
+var username;	
 
 let key_pressed; 
 
