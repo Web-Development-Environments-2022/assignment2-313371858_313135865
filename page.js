@@ -2,7 +2,9 @@ var divs =
     ['Welcome', 'Register', 'Login', 'Settings','Game','Restart'] ;
   
 function alternateDivs(div_id) {
-    
+    if (div_id != 'Game'){
+        audio.pause();
+    }
     var x = document.getElementById(div_id);
     if (x.style.display === "none") {
         x.style.display = "block";

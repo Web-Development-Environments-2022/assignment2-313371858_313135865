@@ -18,7 +18,11 @@ var gameLength = 60;
 let board_wo_ghost;
 var username;	
 let key_pressed; 
+var audio = new Audio('src/backgroundMusic.mp3');
 
+function playSound(){
+    audio.play();
+}
 
 let ghost1 = document.createElement('img');
 ghost1.src = 'src/images/ghost1.png';
@@ -51,6 +55,7 @@ function startGame(){
 
 function Start() {
 
+	audio.play();
 	food_5 = food_remain*0.6
 	food_15 = food_remain*0.3
 	food_25 = food_remain*0.1
@@ -344,7 +349,7 @@ function UpdatePosition() {
 			window.alert("You are better than " + score + " points!");
 		}
 		alternateDivs('Restart')
-		
+		audio.pause();
 	}
 }
 
