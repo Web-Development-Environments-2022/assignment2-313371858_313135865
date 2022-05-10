@@ -340,8 +340,8 @@ function UpdatePosition() {
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (time_elapsed >= gameLength || packmanLives == 0) {
-		// window.clearInterval(interval);
+	if (time_elapsed >= gameLength || packmanLives == 4) {
+		window.clearInterval(interval);
 		// window.clearInterval(ghostInterval);
 		if (score >= 100){
 			window.alert("Winner!!!");
