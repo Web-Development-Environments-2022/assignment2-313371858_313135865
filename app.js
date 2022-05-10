@@ -14,9 +14,9 @@ var color5;
 var color15;
 var color25;
 let food_remain = 50
+var gameLength = 60;
 let board_wo_ghost;
 var username;	
-
 let key_pressed; 
 
 
@@ -334,7 +334,7 @@ function UpdatePosition() {
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (score == 400) {
+	if (score == 400 || time_elapsed >= gameLength ) {
 		window.clearInterval(interval);
 		window.clearInterval(ghostInterval);
 		window.alert("Game completed");
