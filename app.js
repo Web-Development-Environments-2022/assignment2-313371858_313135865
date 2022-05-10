@@ -334,10 +334,17 @@ function UpdatePosition() {
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (score == 400 || time_elapsed >= gameLength ) {
-		window.clearInterval(interval);
-		window.clearInterval(ghostInterval);
-		window.alert("Game completed");
+	if (time_elapsed >= gameLength ) {
+		// window.clearInterval(interval);
+		// window.clearInterval(ghostInterval);
+		if (score >= 100){
+			window.alert("Winner!!!");
+		}
+		else{
+			window.alert("You are better than " + score + " points!");
+		}
+		alternateDivs('Restart')
+		
 	}
 }
 

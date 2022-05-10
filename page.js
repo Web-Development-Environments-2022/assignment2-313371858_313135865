@@ -1,5 +1,5 @@
 var divs = 
-    ['Welcome', 'Register', 'Login', 'Settings','Game'] ;
+    ['Welcome', 'Register', 'Login', 'Settings','Game','Restart'] ;
   
 function alternateDivs(div_id) {
     
