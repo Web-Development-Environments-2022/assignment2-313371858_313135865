@@ -13,6 +13,7 @@ var rightKey = 39
 var color5;
 var color15;
 var color25;
+var packmanLives;
 let food_remain = 50
 var gameLength = 60;
 let board_wo_ghost;
@@ -59,16 +60,14 @@ function Start() {
 	food_5 = food_remain*0.6
 	food_15 = food_remain*0.3
 	food_25 = food_remain*0.1
-
 	window.clearInterval(ghostInterval);
-
-
 	packmanLives = 5;
 	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
 	
 	countGhost = 0;
 	ghostPosition = [];
+	change_pacman_lives_img();
 
 	board = new Array();
 	board_wo_ghost = new Array();
@@ -334,12 +333,14 @@ function UpdatePosition() {
 	}
 	if (cell_value == 7) {
 		score = score - 10
+		packmanLives = packmanLives - 1
+		change_pacman_lives_img();
 		Draw();
 		repositionGhost();
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (score == 30||time_elapsed >= gameLength ) {
+	if (time_elapsed >= gameLength || packmanLives == 0) {
 		// window.clearInterval(interval);
 		// window.clearInterval(ghostInterval);
 		if (score >= 100){
@@ -386,6 +387,8 @@ function UpdateGhost() {
 	for (i = 0; i < ghostNumFromUser; i++){
 		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2 ) {
 			score = score -10
+			packmanLives = packmanLives - 1
+			change_pacman_lives_img();
 			repositionGhost();
 			break;
 		}
@@ -496,4 +499,25 @@ function chooseDirection(ghostX, ghostY){
 		}
 
 		return direction
+}
+
+function change_pacman_lives_img(){
+	let lives_img = document.getElementById("pac_lives_img");
+
+	if (packmanLives == 5) {
+		lives_img.src="src/images/5lives.png";
+	}
+	else if (packmanLives == 4) {
+		lives_img.src="src/images/4lives.png";
+	}
+	else if (packmanLives == 3) {
+		lives_img.src="src/images/3lives.png";
+	}
+	else if (packmanLives == 2) {
+		lives_img.src="src/images/2lives.png";
+	}
+	else {
+		lives_img.src="src/images/1lives.png";
+	}
+
 }
