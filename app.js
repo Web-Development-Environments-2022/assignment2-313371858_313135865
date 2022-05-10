@@ -339,15 +339,20 @@ function UpdatePosition() {
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (time_elapsed >= gameLength ) {
+	if (score == 30||time_elapsed >= gameLength ) {
 		// window.clearInterval(interval);
 		// window.clearInterval(ghostInterval);
 		if (score >= 100){
 			window.alert("Winner!!!");
+			alternateConfetti()
+			startConfetti()
 		}
 		else{
 			window.alert("You are better than " + score + " points!");
+			alternateConfetti()
+			startConfetti()
 		}
+		// stopConfetti()
 		alternateDivs('Restart')
 		audio.pause();
 	}
