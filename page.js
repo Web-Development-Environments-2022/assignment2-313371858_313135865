@@ -4,10 +4,17 @@ var divs =
 function alternateDivs(div_id) {
     if (div_id != 'Game'){
         audio.pause();
+        
+    }
+
+    if (div_id == 'Game'){
+        printUser()
+        
     }
     if (div_id != 'Restart'){
         stopConfetti()
     }
+
 
     var x = document.getElementById(div_id);
     if (x.style.display === "none") {
@@ -30,6 +37,11 @@ function alternateConfetti(){
             y.style.display = "none";
     }
 }
+
+
+function printUser() {
+    document.getElementById("currentUser").innerHTML = `Username: ${username}`;
+  }
 
 
 

@@ -22,7 +22,7 @@ $('body').click(function (event) {
   
   if (event.target.id != "modal-content" & modalOpen == true) {
      $("#myModal").hide();
-     modalOpen = false
+     kmodalOpen = false
   }
   else{ modalOpen = true}
    
