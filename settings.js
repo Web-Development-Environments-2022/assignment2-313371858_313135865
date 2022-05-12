@@ -1,7 +1,7 @@
 
 
 function initSettings(){
-    food_remain = document.getElementById("number_of_balls").value;
+    food_remain = document.getElementById("number_of_balls").value *2
     ghostNumFromUser = document.getElementById("number_of_ghosts").value;
     gameLength = document.getElementById("amount_of_time").value;
     // Colors.

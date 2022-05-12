@@ -47,7 +47,7 @@ medicine.src = 'src/images/medicine.png';
 
 
 let ghostList = [ghost1, ghost2,ghost3,ghost4]
-let corners = [ [0,0],[0,9],[9,0],[9,9]  ]
+let corners = [ [0,0],[0,15],[15,0],[15,15]  ]
 let ghostNumFromUser;
 let countGhost = 0;
 let ghostPosition;
@@ -74,74 +74,116 @@ function Start() {
 	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
 	
+	clockPosition = [];
+	medicinePosition = [];
+	
 	countGhost = 0;
 	ghostPosition = [];
 	change_pacman_lives_img();
-
-	clockPosition = [];
-	medicinePosition = [];
-
+  
 	board = new Array();
 	board_wo_ghost = new Array();
 	score = 0;
-	var cnt = 100;
+	var cnt = 400;
 	var pacman_remain = 1;
 	key_pressed = 0;
-
+  
 	start_time = new Date();
-	for (var i = 0; i < 10; i++) {
-		board[i] = new Array();
-		board_wo_ghost[i] = new Array();
-		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		for (var j = 0; j < 10; j++) {
-			if (food_remain == 0){
-				break
-			}
-			if (
-				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
-			) {
-				board[i][j] = 4;
-			} else {
-				var randomNum = Math.random();
-
-				if (randomNum <= (1.0 * food_25) / cnt) {
-					food_25--;
-					
-					board[i][j] = 25;
-				}
-				else if (randomNum <= (1.0 * food_5) / cnt) {
-					food_5--;
-					
-					board[i][j] = 5;}
-
-				
-				else if (randomNum <= (1.0 * food_15) / cnt) {
-					food_15--;
-					
-					board[i][j] = 15;}
-				 else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt & pacman_remain == 1) {
-					pacman.i = i;
-					pacman.j = j;
-					pacman_remain--;
-					board[i][j] = 2;
-				} else {
-					board[i][j] = 0;
-				}
-				cnt--;
-			}
-			board_wo_ghost[i][j] = board[i][j]
+	for (var i = 0; i < 15; i++) {
+	  board[i] = new Array();
+	  board_wo_ghost[i] = new Array();
+	  //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
+	  for (var j = 0; j < 15; j++) {
+  
+		if (
+		  (i == 2 && j == 2) || (i == 3 && j == 2) || (i == 4 && j == 2) || (i == 2 && j == 3) || (i == 3 && j == 3) || (i == 4 && j == 3) ||
+		  (i == 2 && j == 5) || (i == 2 && j == 7) || (i == 3 && j == 5) || (i == 3 && j == 7) || (i == 4 && j == 5) || (i == 4 && j == 7) ||
+		  (i == 6 && j == 2) || (i == 7 && j == 2) || (i == 8 && j == 2) || (i == 6 && j == 3) || (i == 7 && j == 3) || (i == 8 && j == 3) ||
+		  (i == 2 && j == 12) || (i == 3 && j == 12) || (i == 2 && j == 14) || (i == 3 && j == 14) || (i == 4 && j == 12) || (i == 4 && j == 14) ||
+		  (i == 2 && j == 16) || (i == 2 && j == 17) || (i == 3 && j == 16) || (i == 3 && j == 17) || (i == 4 && j == 16) || (i == 4 && j == 17) ||
+		  (i == 12 && j == 2) || (i == 13 && j == 2) || (i == 14 && j == 2) || (i == 12 && j == 3) || (i == 13 && j == 3) || (i == 14 && j == 3) ||
+		  (i == 6 && j == 16) || (i == 6 && j == 17) || (i == 7 && j == 16) || (i == 7 && j == 17) || (i == 8 && j == 16) || (i == 8 && j == 17) ||
+		  (i == 12 && j == 16) || (i == 13 && j == 16) || (i == 14 && j == 16) || (i == 12 && j == 17) || (i == 13 && j == 17) || (i == 14 && j == 17) ||
+		  (i == 1 && j == 9) || (i == 1 && j == 10) || (i == 2 && j == 9) || (i == 2 && j == 10) || (i == 3 && j == 9) || (i == 3 && j == 10) || (i == 4 && j == 9) || (i == 4 && j == 10) || (i == 5 && j == 9) || (i == 5 && j == 10) ||
+		  (i == 14 && j == 9) || (i == 14 && j == 10) || (i == 15 && j == 9) || (i == 15 && j == 10) || (i == 16 && j == 9) || (i == 16 && j == 10) || (i == 17 && j == 9) || (i == 17 && j == 10) || (i == 18 && j == 9) || (i == 18 && j == 10) ||
+		  (i == 10 && j == 2) || (i == 10 && j == 3) || (i == 10 && j == 16) || (i == 10 && j == 17) ||
+		  (i == 16 && j == 2) || (i == 16 && j == 3) || (i == 17 && j == 2) || (i == 17 && j == 3) ||
+		  (i == 16 && j == 5) || (i == 16 && j == 7) || (i == 17 && j == 5) || (i == 17 && j == 7) ||
+		  (i == 16 && j == 12) || (i == 16 && j == 14) || (i == 17 && j == 12) || (i == 17 && j == 14) ||
+		  (i == 6 && j == 5) || (i == 6 && j == 6) || (i == 6 && j == 7) || (i == 6 && j == 12) || (i == 6 && j == 13) || (i == 6 && j == 14) ||
+		  (i == 14 && j == 5) || (i == 14 && j == 6) || (i == 14 && j == 7) || (i == 14 && j == 12) || (i == 14 && j == 13) || (i == 14 && j == 14) ||
+		  (i == 8 && j == 5) || (i == 9 && j == 5) || (i == 10 && j == 5) || (i == 11 && j == 5) || (i == 12 && j == 5) ||
+		  (i == 8 && j == 10) || (i == 9 && j == 10) || (i == 10 && j == 10) || (i == 11 && j == 10) || (i == 12 && j == 10) ||
+		  (i == 8 && j == 14) || (i == 9 && j == 14) || (i == 10 && j == 14) || (i == 11 && j == 14) || (i == 12 && j == 14) ||
+		  (i == 10 && j == 6) || (i == 10 && j == 7) || (i == 10 && j == 12) || (i == 10 && j == 13) ||
+		  (i == 8 && j == 9) || (i == 12 && j == 9) || (i == 8 && j == 11) || (i == 12 && j == 11) ||
+		  (i == 16 && j == 16) || (i == 16 && j == 17) || (i == 17 && j == 16) || (i == 17 && j == 17)
+		) {
+		  board[i][j] = 4;
+		} else {
+		  var randomNum = getRandomInt(3)
+		
+		   if (getRandomInt(2) == 1 & board[i][j] != 4 & randomNum == 2 & food_25 > 0 ){
+			food_25--;
+			
+			board[i][j] = 25;
+		  }
+  
+		  else if (getRandomInt(2) == 1 & board[i][j] != 4 & randomNum == 0 & food_5 > 0 ){
+			food_5--;
+			
+			board[i][j] = 5;
+		  }
+	  
+		  else if (getRandomInt(2) == 1 & board[i][j] != 4 & randomNum == 1 & food_15 > 0 ){
+			food_15--;
+			
+			board[i][j] = 15;
+		  }
+  
+		  else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt & pacman_remain == 1) {
+			pacman.i = i;
+			pacman.j = j;
+			pacman_remain--;
+			board[i][j] = 2;
+		  }
+		  else{
+			board[i][j] = 0;
+		  }
+		  cnt--;
 		}
+		board_wo_ghost[i][j] = board[i][j]
+	  }
 	}
+
 	// while (food_remain > 0) {
 	// 	var emptyCell = findRandomEmptyCell(board);
 	// 	board[emptyCell[0]][emptyCell[1]] = 1;
 	// 	food_remain--;
 	// }
 	//board_wo_ghost = board;
+
+	while (food_5 > 0){
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 5;
+		board_wo_ghost[emptyCell[0]][emptyCell[1]] = 5 ;
+		food_5--;
+	  }
+	
+	  while (food_25 > 0){
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 25;
+		board_wo_ghost[emptyCell[0]][emptyCell[1]] = 25 ;
+		food_25--;
+	  }
+	
+	  while (food_15 > 0){
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 15;
+		board_wo_ghost[emptyCell[0]][emptyCell[1]] = 15 ;
+		food_15--;
+	  }
+
 	while (ghost_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 7 ;
@@ -187,10 +229,10 @@ function Start() {
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
-	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
-	}
+	// while (board[i][j] != 4) {
+	// 	i = Math.floor(Math.random() * 9 + 1);
+	// 	j = Math.floor(Math.random() * 9 + 1);
+	// }
 	return [i, j];
 }
 
@@ -225,8 +267,8 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
-	for (var i = 0; i < 10; i++) {
-		for (var j = 0; j < 10; j++) {
+	for (var i = 0; i < 15; i++) {
+		for (var j = 0; j < 15; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
@@ -370,7 +412,7 @@ function UpdatePosition() {
 		}
 	}
 	if (key_pressed == 2) {
-		if (pacman.j < 9 && board[pacman.i][pacman.j + 1] != 4) {
+		if (pacman.j < 15 && board[pacman.i][pacman.j + 1] != 4) {
 			pacman.j++;
 		}
 	}
@@ -380,7 +422,7 @@ function UpdatePosition() {
 		}
 	}
 	if (key_pressed == 4) {
-		if (pacman.i < 9 && board[pacman.i + 1][pacman.j] != 4) {
+		if (pacman.i < 15 && board[pacman.i + 1][pacman.j] != 4) {
 			pacman.i++;
 		}
 	}
@@ -499,7 +541,7 @@ function UpdateGhost() {
 
 
 function isPossibleStep(ghostX, ghostY){
-	if (ghostX < 0 || ghostX > 9 || ghostY < 0  || ghostX > 9){
+	if (ghostX < 0 || ghostX > 15 || ghostY < 0  || ghostY > 15){
 		return false;
 	}
 
@@ -600,3 +642,7 @@ function GhostEatPacman(){
 	change_pacman_lives_img();
 	repositionGhost();
 }
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
+	}
