@@ -14,7 +14,9 @@ var color5;
 var color15;
 var color25;
 var packmanLives;
-let food_remain = 50
+let food_remain = 50;
+let clock_remain = 5;
+let medicine_remain = 5;
 var gameLength = 60;
 let board_wo_ghost;
 var username;	
@@ -36,6 +38,9 @@ ghost3.src = 'src/images/ghost3.png';
 
 let ghost4 = document.createElement('img');
 ghost4.src = 'src/images/ghost4.png';
+
+let clock = document.createElement('img');
+clock.src = 'src/images/clock.png';
 
 let ghostList = [ghost1, ghost2,ghost3,ghost4]
 let corners = [ [0,0],[0,9],[9,0],[9,9]  ]
@@ -68,6 +73,8 @@ function Start() {
 	countGhost = 0;
 	ghostPosition = [];
 	change_pacman_lives_img();
+
+	clockPosition = [];
 
 	board = new Array();
 	board_wo_ghost = new Array();
@@ -139,6 +146,13 @@ function Start() {
 	ghost_interval = setInterval(UpdateGhost,350);
 	repositionGhost();
 
+	while (clock_remain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 8 ;
+		board_wo_ghost[emptyCell[0]][emptyCell[1]] = 8 ;
+		clockPosition.push(emptyCell)
+		clock_remain--;
+	}
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -232,6 +246,21 @@ function Draw() {
 			else if (board[i][j] == 7) {
 				draw_ghost(center)
 			}
+
+			else if (board[i][j] == 8){
+				draw_clock(center)
+			// 	if (time_elapsed <= 0.2*gameLength){
+			// 		board[i][j] == 9
+			// 	}
+			// 	else if (time_elapsed <= 0.5*gameLength){
+			// 		board[i][j] == 9
+			// 	}
+			// 	else if (time_elapsed <= 0.8*gameLength){
+			// 		board[i][j] == 9
+			// 	}
+			}
+			// else if( board[i][j] == 9){
+			// }
 		}
 	}
 }
@@ -271,10 +300,8 @@ function draw_packman(center)  {
 
 }
 
-
 function draw_ghost(center) {
 	context.beginPath();
-	// TODO: get as param
 	context.drawImage(ghost2, center.x-20 , center.y-20 , 50, 50);
 	context.fill();
 
@@ -285,6 +312,12 @@ function draw_ghost(center) {
 	else {
 		countGhost++
 	}
+}
+
+function draw_clock(center) {
+	context.beginPath();
+	context.drawImage(clock, center.x-20 , center.y-20 , 50, 50);
+	context.fill();
 }
 
 function UpdatePosition() {
@@ -320,6 +353,9 @@ function UpdatePosition() {
 	}
 	else if (board[pacman.i][pacman.j] == 25) {
 		score+=25;
+	}
+	else if (board[pacman.i][pacman.j] == 8) {
+		start_time.setSeconds(start_time.getSeconds() + 10)
 	}
 	var cell_value = board[pacman.i][pacman.j];
 
