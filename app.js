@@ -49,7 +49,7 @@ medicine.src = 'src/images/medicine.png';
 
 
 let ghostList = [ghost1, ghost2,ghost3,ghost4]
-let corners = [ [0,0],[0,14],[14,0],[14,14]  ]
+let corners = [[0,0],[0,14],[14,0],[14,14]]
 let ghostNumFromUser;
 let countGhost = 0;
 let ghostPosition;
@@ -544,7 +544,7 @@ function UpdateGhost() {
 
 
 function isPossibleStep(ghostX, ghostY){
-	if (ghostX < 0 || ghostX > 15 || ghostY < 0  || ghostY > 15){
+	if (ghostX < 0 || ghostX > 14 || ghostY < 0  || ghostY > 14){
 		return false;
 	}
 
