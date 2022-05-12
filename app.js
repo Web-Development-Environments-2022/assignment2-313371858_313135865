@@ -47,7 +47,7 @@ medicine.src = 'src/images/medicine.png';
 
 
 let ghostList = [ghost1, ghost2,ghost3,ghost4]
-let corners = [ [0,0],[0,15],[15,0],[15,15]  ]
+let corners = [ [0,0],[0,14],[14,0],[14,14]  ]
 let ghostNumFromUser;
 let countGhost = 0;
 let ghostPosition;
@@ -147,7 +147,7 @@ function Start() {
 			pacman_remain--;
 			board[i][j] = 2;
 		  }
-		  else{
+		  else if (board[i][j] != 4 & board[i][j] != 5 & board[i][j] != 15 & board[i][j] != 25){
 			board[i][j] = 0;
 		  }
 		  cnt--;
@@ -412,7 +412,7 @@ function UpdatePosition() {
 		}
 	}
 	if (key_pressed == 2) {
-		if (pacman.j < 15 && board[pacman.i][pacman.j + 1] != 4) {
+		if (pacman.j < 14 && board[pacman.i][pacman.j + 1] != 4) {
 			pacman.j++;
 		}
 	}
@@ -422,7 +422,7 @@ function UpdatePosition() {
 		}
 	}
 	if (key_pressed == 4) {
-		if (pacman.i < 15 && board[pacman.i + 1][pacman.j] != 4) {
+		if (pacman.i < 14 && board[pacman.i + 1][pacman.j] != 4) {
 			pacman.i++;
 		}
 	}
