@@ -27,6 +27,8 @@ function playSound(){
     audio.play();
 }
 
+document.body.style.zoom="80%"
+
 let ghost1 = document.createElement('img');
 ghost1.src = 'src/images/ghost1.png';
 
@@ -266,6 +268,7 @@ function Draw() {
 	*/
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
+	
 	lblTime.value = time_elapsed;
 	for (var i = 0; i < 15; i++) {
 		for (var j = 0; j < 15; j++) {

@@ -75,7 +75,8 @@ canvas {
   padding: 0;
   margin: auto;
   display: block;
-  
+  width: 33%;
+  height: 33%;
 }
 
 .article-reference {
