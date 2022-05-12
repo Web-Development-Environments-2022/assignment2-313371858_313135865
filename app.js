@@ -332,15 +332,11 @@ function UpdatePosition() {
 		pac_color = "green";
 	}
 	if (cell_value == 7) {
-		score = score - 10
-		packmanLives = packmanLives - 1
-		change_pacman_lives_img();
-		Draw();
-		repositionGhost();
+		GhostEatPacman();
 	}
 	// TODO: draw happens twice if cell value == 7?
 	Draw();
-	if (time_elapsed >= gameLength || packmanLives == 4) {
+	if (time_elapsed >= gameLength || packmanLives == 0) {
 		window.clearInterval(interval);
 		// window.clearInterval(ghostInterval);
 		if (score >= 100){
@@ -386,10 +382,7 @@ function UpdateGhost() {
 	var i;
 	for (i = 0; i < ghostNumFromUser; i++){
 		if (board[ghostPosition[i][0]][ghostPosition[i][1]] == 2 ) {
-			score = score -10
-			packmanLives = packmanLives - 1
-			change_pacman_lives_img();
-			repositionGhost();
+			GhostEatPacman();
 			break;
 		}
 		let GhostX = ghostPosition[i][0];
@@ -520,4 +513,11 @@ function change_pacman_lives_img(){
 		lives_img.src="src/images/1lives.png";
 	}
 
+}
+
+function GhostEatPacman(){
+	score = score -10
+	packmanLives = packmanLives - 1
+	change_pacman_lives_img();
+	repositionGhost();
 }
