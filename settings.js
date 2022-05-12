@@ -10,7 +10,19 @@ function initSettings(){
     color25 = document.getElementById("25_color").value;
     startGame()
     alternateDivs('Game');
-   
+}
+
+function randomSettings(){
+    
+    food_remain = randomIntFromInterval(50, 90) *2
+    ghostNumFromUser = randomIntFromInterval(1, 4)
+    gameLength = randomIntFromInterval(60,120)
+    // Colors.
+    color5 = "#" + Math.floor(Math.random()*16777215).toString(16);
+    color15 = "#" +  Math.floor(Math.random()*16777215).toString(16);
+    color25 = "#" +  Math.floor(Math.random()*16777215).toString(16);
+    startGame()
+    alternateDivs('Game');
 }
 
 
@@ -72,3 +84,9 @@ function displayKey(key_pressed)
             return String.fromCharCode(event.keyCode);
     }
 }
+
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+  
+ 

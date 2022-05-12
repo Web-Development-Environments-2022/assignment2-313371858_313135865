@@ -1,13 +1,11 @@
-var modalOpen = false
+var kmodalOpen = false
 function openModal(){
     var modal = document.getElementById("myModal")
     modal.style.display = "block";
     var span = document.getElementsByClassName("close")[0];
-    
     span.onclick = function() {
   modal.style.display = "none";
 }
-
 
 }
 
@@ -20,11 +18,11 @@ $(document).keydown(function(event) {
 
 $('body').click(function (event) {
   
-  if (event.target.id != "modal-content" & modalOpen == true) {
+  if (event.target.id != "modal-content" & kmodalOpen == true) {
      $("#myModal").hide();
      kmodalOpen = false
   }
-  else{ modalOpen = true}
+  else{ kmodalOpen = true}
    
 });
 

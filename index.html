@@ -25,16 +25,15 @@
 
 			<a href="#" onclick="alternateDivs('Welcome');">Welcome</a>
 			<a href="#" onclick="alternateDivs('Register');">Register</a>
-			<a href="#" onclick="alternateDivs('Settings');">Settings</a>
 			<a href="#" onclick="alternateDivs('Login');">Login</a>
 			<a href="#" onclick="openModal();">About</a>
 		
 		</div>
 	</div>
 
-		<div id = "Welcome" style="display:none;">
-			<button class = "button" onclick="alternateDivs('Register');">Register</button>
-			<button class = "button" onclick="alternateDivs('Login');">Login</button>
+		<div id = "Welcome" style="display:block;">
+			<button class = "button" style="display:inline;margin-right: 30px;margin-left: 850px;" onclick="alternateDivs('Register'); ">Register</button>
+			<button class = "button" style="display:inline;margin-right: 30px;" onclick="alternateDivs('Login');">Login</button>
 		</div>
 
 		<link rel="stylesheet" href="style.css"/>
@@ -119,7 +118,7 @@
 					<input type="range" id="number_of_ghosts" value="1" min="1" max="4" oninput="this.nextElementSibling.value = this.value">
 					<output>1</output>
 					<br/>
-					<button class = "buttonSmall" type="button" onclick="random_settings()">Random Settings</button>
+					<button class = "buttonSmall" type="button" onclick="randomSettings()">Random Settings</button>
 					<hr>
 					<button class = "button-42" onclick="initSettings()">Let's Start!</button>
                 </div>
@@ -155,8 +154,11 @@
 		<div id = "Restart" style="display:none;" >
 			<button class = "button" onclick="alternateDivs('Settings');">Restart Game</button>
 		</div>
-
-		
+	
 	</body>
+	<footer>
+		
+		<p>This game made by Jonathan and Tamar Ⓒ </p>
+	  </footer>
 </body>
 </html>

@@ -75,8 +75,8 @@ canvas {
   padding: 0;
   margin: auto;
   display: block;
-  width: 33%;
-  height: 33%;
+  width: 29%;
+  height: 29%;
 }
 
 .article-reference {
@@ -118,6 +118,9 @@ canvas {
   font-weight: bold;
 }
 
+.Welcome{
+  display: inline;
+}
 
 .close:hover,
 .close:focus {
@@ -403,6 +406,15 @@ select option {
   text-align: center;
   margin: auto;
   display: block;
+}
+
+footer {
+  text-align: center;
+  padding: 3px;
+  /* background-color: DarkSalmon; */
+  color: rgb(0, 0, 0);
+  font-size: 25px;
+  font-family: "Open Sans";
 }
 
 audio {display:none;}
