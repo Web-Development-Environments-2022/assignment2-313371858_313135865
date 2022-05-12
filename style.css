@@ -230,6 +230,37 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   box-shadow: rgba(255, 205, 23, 0.5) 0 3px 8px;
 }
 
+/* CSS */
+.button-22 {
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #f9c668, #e5b83b);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 8%;
+  z-index: 9;
+  border: 0;
+  transition: box-shadow .2s;
+}
+
+.button-22:hover {
+  box-shadow: rgba(202, 159, 0, 0.5) 0 3px 8px;
+}
 /* 64ac15 */
 *,
 *:before,
