@@ -42,6 +42,10 @@ ghost4.src = 'src/images/ghost4.png';
 let clock = document.createElement('img');
 clock.src = 'src/images/clock.png';
 
+let medicine = document.createElement('img');
+medicine.src = 'src/images/medicine.png';
+
+
 let ghostList = [ghost1, ghost2,ghost3,ghost4]
 let corners = [ [0,0],[0,9],[9,0],[9,9]  ]
 let ghostNumFromUser;
@@ -75,6 +79,7 @@ function Start() {
 	change_pacman_lives_img();
 
 	clockPosition = [];
+	medicinePosition = [];
 
 	board = new Array();
 	board_wo_ghost = new Array();
@@ -152,6 +157,14 @@ function Start() {
 		board_wo_ghost[emptyCell[0]][emptyCell[1]] = 8 ;
 		clockPosition.push(emptyCell)
 		clock_remain--;
+	}
+
+	while (medicine_remain > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 10 ;
+		board_wo_ghost[emptyCell[0]][emptyCell[1]] = 10 ;
+		medicinePosition.push(emptyCell)
+		medicine_remain--;
 	}
 	keysDown = {};
 	addEventListener(
@@ -247,20 +260,38 @@ function Draw() {
 				draw_ghost(center)
 			}
 
-			else if (board[i][j] == 8){
-				draw_clock(center)
-			// 	if (time_elapsed <= 0.2*gameLength){
-			// 		board[i][j] == 9
-			// 	}
-			// 	else if (time_elapsed <= 0.5*gameLength){
-			// 		board[i][j] == 9
-			// 	}
-			// 	else if (time_elapsed <= 0.8*gameLength){
-			// 		board[i][j] == 9
-			// 	}
+			else if (board[i][j] == 8){	
+				let rand_int = Math.random();
+				if (rand_int > 0.99 && time_elapsed > parseInt(gameLength)*0.2){
+					board[i][j] = 9
+				}
+				else if (rand_int > 0.999 && time_elapsed > parseInt(gameLength)*0.5){
+					board[i][j] = 9
+				}
+				else if (rand_int > 0.9 && time_elapsed > parseInt(gameLength)*0.8){
+					board[i][j] = 9
+				}
+				board_wo_ghost[i][j] = board[i][j]
 			}
-			// else if( board[i][j] == 9){
-			// }
+			else if (board[i][j] == 9){
+				draw_clock(center)
+			}
+			else if (board[i][j] == 10 && packmanLives < 5){	
+				let rand_int = Math.random();
+				if (rand_int > 0.99 && time_elapsed > parseInt(gameLength)*0.2){
+					board[i][j] = 11
+				}
+				else if (rand_int > 0.999 && time_elapsed > parseInt(gameLength)*0.5){
+					board[i][j] = 11
+				}
+				else if (rand_int > 0.9 && time_elapsed > parseInt(gameLength)*0.8){
+					board[i][j] = 11
+				}
+				board_wo_ghost[i][j] = board[i][j]
+			}
+			else if (board[i][j] == 11){
+				draw_medicine(center)
+			}
 		}
 	}
 }
@@ -320,6 +351,14 @@ function draw_clock(center) {
 	context.fill();
 }
 
+function draw_medicine(center) {
+	context.beginPath();
+	context.drawImage(medicine, center.x-20 , center.y-20 , 50, 50);
+	context.fill();
+}
+
+
+
 function UpdatePosition() {
 
 	board[pacman.i][pacman.j] = 0;
@@ -354,8 +393,12 @@ function UpdatePosition() {
 	else if (board[pacman.i][pacman.j] == 25) {
 		score+=25;
 	}
-	else if (board[pacman.i][pacman.j] == 8) {
+	else if (board[pacman.i][pacman.j] == 9) {
 		start_time.setSeconds(start_time.getSeconds() + 10)
+	}
+	else if (board[pacman.i][pacman.j] == 11) {
+		packmanLives = packmanLives + 1
+		change_pacman_lives_img();
 	}
 	var cell_value = board[pacman.i][pacman.j];
 
