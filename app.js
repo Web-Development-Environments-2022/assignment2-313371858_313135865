@@ -308,7 +308,7 @@ function Draw() {
 				context.fill();
 			}
 			else if (board[i][j] == 7) {
-				draw_ghost(center)
+				draw_object(center, ghost1)
 			}
 
 			else if (board[i][j] == 8) {
@@ -325,7 +325,7 @@ function Draw() {
 				board_wo_ghost[i][j] = board[i][j]
 			}
 			else if (board[i][j] == 9) {
-				draw_clock(center)
+				draw_object(center, clock)
 			}
 			else if (board[i][j] == 10 && packmanLives < 5) {
 				let rand_int = Math.random();
@@ -341,10 +341,10 @@ function Draw() {
 				board_wo_ghost[i][j] = board[i][j]
 			}
 			else if (board[i][j] == 11) {
-				draw_medicine(center)
+				draw_object(center, medicine)
 			}
 			else if (board[i][j] == 3) {
-				draw_score_chacrecter(center)
+				draw_object(center, score_char)
 			}
 		}
 	}
@@ -385,35 +385,9 @@ function draw_packman(center) {
 
 }
 
-function draw_ghost(center) {
+function draw_object(center, object_image){
 	context.beginPath();
-	context.drawImage(ghost2, center.x - 20, center.y - 20, 50, 50);
-	context.fill();
-
-	// TODO: WTF
-	if (countGhost == ghostNumFromUser - 1) {
-		countGhost = 0
-	}
-	else {
-		countGhost++
-	}
-}
-
-function draw_clock(center) {
-	context.beginPath();
-	context.drawImage(clock, center.x - 20, center.y - 20, 50, 50);
-	context.fill();
-}
-
-function draw_medicine(center) {
-	context.beginPath();
-	context.drawImage(medicine, center.x - 20, center.y - 20, 50, 50);
-	context.fill();
-}
-
-function draw_score_chacrecter(center) {
-	context.beginPath();
-	context.drawImage(score_char, center.x - 20, center.y - 20, 50, 50);
+	context.drawImage(object_image, center.x - 20, center.y - 20, 50, 50);
 	context.fill();
 }
 
@@ -457,6 +431,7 @@ function UpdatePosition() {
 	}
 	else if (board[pacman.i][pacman.j] == 11) {
 		packmanLives = packmanLives + 1
+		if (packmanLives > 5){packmanLives = 5;}
 		change_pacman_lives_img();
 	}
 	var cell_value = board[pacman.i][pacman.j];
@@ -559,7 +534,7 @@ function UpdateGhost() {
 
 }
 function pacmanEatChar() {
-	score = score + 40
+	score = score + 50
 	score_char_remain -= 1;
 }
 
@@ -707,7 +682,7 @@ function chooseDirectionForChar(charX, charY) {
 function change_pacman_lives_img() {
 	let lives_img = document.getElementById("pac_lives_img");
 
-	if (packmanLives == 5) {
+	if (packmanLives >= 5) {
 		lives_img.src = "src/images/5lives.png";
 	}
 	else if (packmanLives == 4) {
