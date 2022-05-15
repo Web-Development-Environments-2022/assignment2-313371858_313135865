@@ -5,8 +5,12 @@ $(document).ready(function(){
 $(function() {
     $("form[name='registration']").validate({
       rules: {
-        firstname: "required",
-        lastname: "required",
+        firstname: {
+          required: true},
+        lastname: {
+          required: true,
+          number: false,
+          namecheck: true},
         email: {
           required: true,
           email: true
@@ -22,11 +26,11 @@ $(function() {
         }
       },
       messages: {
-        firstname: "Please enter your firstname",
-        lastname: "Please enter your lastname",
+        firstname: "Please enter your usertname",
+        lastname: "Please enter your full name, without numbers",
         password: {
           required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long",
+          minlength: "Your password must be at least 6 characters long",
           pwcheck: "Your password must contain numbers and letters"
         },  
         email: "Please enter a valid email address"
@@ -40,6 +44,10 @@ $(function() {
 
   $.validator.addMethod("pwcheck", function(value) {
     return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && /[a-z]/.test(value) && /\d/.test(value);
+  });
+
+  $.validator.addMethod("namecheck", function(value) {
+    return /^[A-Za-z=!\-@._*]*$/.test(value);
   });
 
   function submit(){
