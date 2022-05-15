@@ -57,6 +57,7 @@ $(function() {
       console.log(username.value)
       localStorage.setItem(username.value,password.value)
       window.alert("Successful registration")
+      alternateDivs('Login')
     }
     else{
       window.alert("Already signed in")
