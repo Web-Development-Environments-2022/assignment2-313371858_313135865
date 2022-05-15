@@ -60,6 +60,9 @@ let countGhost = 0;
 let ghostPosition;
 let ghostInterval;
 
+setInterval(UpdatePosition, 300);
+setInterval(UpdateScoreCharacter, 500)
+setInterval(UpdateGhost, 350);
 
 function startGame() {
 	context = canvas.getContext("2d");
@@ -116,7 +119,6 @@ function Start() {
 				(i == 8 && j == 14) || (i == 9 && j == 14) || (i == 10 && j == 14) || (i == 11 && j == 14) || (i == 12 && j == 14) ||
 				(i == 10 && j == 6) || (i == 10 && j == 7) || (i == 10 && j == 12) || (i == 10 && j == 13) ||
 				(i == 8 && j == 9) || (i == 12 && j == 9) || (i == 8 && j == 11) || (i == 12 && j == 11)
-
 			) {
 				board[i][j] = 4;
 			}
@@ -195,7 +197,7 @@ function Start() {
 		ghostPosition.push(emptyCell)
 		ghost_remain--;
 	}
-	ghost_interval = setInterval(UpdateGhost, 350);
+	
 	repositionGhost();
 
 	while (clock_remain > 0) {
@@ -229,8 +231,7 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 300);
-	character_interval = setInterval(UpdateScoreCharacter, 500)
+	
 }
 
 function findRandomEmptyCell(board) {
