@@ -1,6 +1,6 @@
 
 
-function initSettings(){
+function initSettings(insideGame){
     food_remain = document.getElementById("number_of_balls").value *2
     ghostNumFromUser = document.getElementById("number_of_ghosts").value;
     gameLength = document.getElementById("amount_of_time").value;
@@ -9,10 +9,13 @@ function initSettings(){
     color15 = document.getElementById("15_color").value;
     color25 = document.getElementById("25_color").value;
     startGame()
-    alternateDivs('Game');
+    if (!insideGame){
+        alternateDivs('Game');
+    }
+    
 }
 
-function randomSettings(){
+function randomSettings(insideGame){
     
     food_remain = randomIntFromInterval(50, 90) *2
     ghostNumFromUser = randomIntFromInterval(1, 4)
@@ -22,7 +25,10 @@ function randomSettings(){
     color15 = "#" +  Math.floor(Math.random()*16777215).toString(16);
     color25 = "#" +  Math.floor(Math.random()*16777215).toString(16);
     startGame()
-    alternateDivs('Game');
+    
+    if (!insideGame){
+        alternateDivs('Game');
+    }
 }
 
 

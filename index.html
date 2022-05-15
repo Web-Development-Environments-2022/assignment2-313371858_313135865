@@ -144,15 +144,63 @@
 							oninput="this.nextElementSibling.value = this.value">
 						<output>1</output>
 						<br />
-						<button class="button-32" type="button" onclick="randomSettings()">Random Settings</button>
+						<button class="button-32" type="button" onclick="randomSettings(false)">Random Settings</button>
 						<hr>
-						<button class="button-42" onclick="initSettings()">Let's Start!</button>
+						<button class="button-42" onclick="initSettings(false)">Let's Start!</button>
 					</div>
 
 				</div>
 			</div>
 
 			<div id="Game" style="display:none;text-align: center;">
+
+				<div id="SettingsInside" style = "float: left; margin-top: 110px; margin-right: -1000px ;margin-left: 60px;;
+				">
+					<div class="container">
+						<div class="settings">
+							Map keys:
+							<div id="keys settings">
+								<input id="buttonUp" class="choose-keyboard" type="button" value="⇧"
+									onclick="chooseKeyUp()">
+								<input id="buttonLeft" class="choose-keyboard" type="button" value="⇦"
+									onclick="chooseKeyLeft()">
+								<input id="buttonRight" class="choose-keyboard" type="button" value="➪"
+									onclick="chooseKeyRight()">
+								<input id="buttonDown" class="choose-keyboard" type="button" value="⇩"
+									onclick="chooseKeyDown()">
+							</div>
+	
+							Amount of balls: <br />
+							<input type="range" id="number_of_balls" value="50" name="quantity" min="50" max="90"
+								oninput="this.nextElementSibling.value = this.value">
+							<output>50</output>
+							<p>5 point dots : (Choose color)</p>
+							<input type="color" id="5_color" value="#FF726f" />
+	
+							<p>15 point dots : (Choose color)</p>
+							<input type="color" id="15_color" value="#88C0D3" />
+	
+	
+							<p>25 point dots : (Choose color)</p>
+							<input type="color" id="25_color" value="#51C251" /><br />
+	
+							Game length: <br />
+							<input type="range" id="amount_of_time" value="60" min="60" max="120"
+								oninput="this.nextElementSibling.value = this.value">
+							<output>60</output><br />
+							Amount of ghosts: <br />
+							<input type="range" id="number_of_ghosts" value="1" min="1" max="4"
+								oninput="this.nextElementSibling.value = this.value">
+							<output>1</output>
+							<br />
+							<button class="button-32" type="button" onclick="randomSettings(true)">Random Settings</button>
+							<hr>
+							<button class="button-42" onclick="initSettings(true)">Let's Start!</button>
+						</div>
+	
+					</div>
+				</div>
+				<div id = "insideGame">
 				<div id="user">
 					<p id="currentUser"></p>
 				</div>
@@ -172,6 +220,7 @@
 					<canvas id="canvas" height="900" width="900"></canvas>
 				</div>
 			</div>
+		</div>
 		</div>
 
 
