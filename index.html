@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<body style="background-color:#FFF8D6;">
+
+<body style="background-color:#FFF8D6;">
 
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
@@ -15,150 +16,174 @@
 	</head>
 
 	<body>
-		
-		<div class="logo">
-			<img src="src/Logo.jpg" class="logo"/>
-		  </div>
-		  
-		<div class = "mainMenu">
-			<div id="menu">              
 
-			<a href="#" onclick="alternateDivs('Welcome');">Welcome</a>
-			<a href="#" onclick="alternateDivs('Register');">Register</a>
-			<a href="#" onclick="alternateDivs('Login');">Login</a>
-			<a href="#" onclick="openModal();">About</a>
-		
+		<header>
+			<center>
+				<h3 id="Details">Jonathan Pelah & Tamar Shaiman</h3>
+				<title> Pacman Game</title>
+			</center>
+
+			<div class="logo">
+				<img src="src/Logo.jpg" class="logo" />
+			</div>
+		</header>
+
+		<div class="mainMenu">
+			<div id="menu">
+
+				<a href="#" onclick="alternateDivs('Welcome');">Welcome</a>
+				<a href="#" onclick="alternateDivs('Register');">Register</a>
+				<a href="#" onclick="alternateDivs('Login');">Login</a>
+				<a href="#" onclick="openModal();">About</a>
+
+			</div>
 		</div>
-	</div>
 
-		<div id = "Welcome" style="display:block;">
-			<button class = "button-22" style="display:inline;margin-right: 30px;margin-left: 850px;" onclick="alternateDivs('Register'); ">Register</button>
-			<button class = "button-22" style="display:inline;margin-right: 30px;" onclick="alternateDivs('Login');">Login</button>
-		</div>
+		<div class="Content">
 
-		<link rel="stylesheet" href="style.css"/>
-		<div id = "Register" style="display:none;">
-			<div class="container">
-				<h2 class="title">Registration</h2>
-				<form   name="registration" method = "dialog">
-			  
-				  <label for="firstname">First Name</label>
-				  <input type="text" name="firstname" id="firstname" placeholder="John">
-			  
-				  <label for="lastname">Last Name</label>
-				  <input type="text" name="lastname" id="lastname" placeholder="Doe">
-			  
-				  <label for="email">Email</label>
-				  <input type="email" name="email" id="email" placeholder="john@doe.com">
-			  
-				  <label for="password">Password</label>
-				  <input type="password" name="password" id="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
-					
-				  <label for="date">Date</label>
-				  <input type="date" name="date" id="date">
+			<div id="Welcome" style="display:block; text-align: center;">
+				<button class="button-22" style="display:inline; margin: 0 auto; "
+					onclick="alternateDivs('Register'); ">Register</button>
+				<button class="button-22" style="display:inline; margin: 0 auto;"
+					onclick="alternateDivs('Login');">Login</button>
+			</div>
 
-				  <button type="submit" class = "button-42">Register</button>
-				</form> 
-			  
-		
-			  </div>
-		</div>
-		<div id = "Login" style="display:none;">
-			<form id="login_form" method="dialog">
+			<link rel="stylesheet" href="style.css" />
+			<div id="Register" style="display:none;">
 				<div class="container">
-				<h2 class="title">Login</h2>
-				  <label><b>Username</b></label>
-				  <input id = "usernameLogin" type="text" placeholder="Enter Username" >
-			  
-				  <label><b>Password</b></label>
-				  <input id = "passwordLogin" type="password" placeholder="Enter Password" >
-				  <button type="submit" class = "button-42" onclick="validate_login()">Login</button>
+					<h2 class="title">Registration</h2>
+					<form name="registration" method="dialog">
+
+						<label for="firstname">User Name</label>
+						<input type="text" name="firstname" id="firstname" placeholder="john123">
+
+						<label for="lastname">Full Name</label>
+						<input type="text" name="lastname" id="lastname" placeholder="john doe">
+
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" placeholder="john@doe.com">
+
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password"
+							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+
+						<label for="date">Date</label>
+						<input type="date" name="date" id="date">
+
+						<button type="submit" class="button-42">Register</button>
+					</form>
+
+
 				</div>
-			  </form>
-		</div>
-
-
-		<div id = "Modal" style="display:block;">
-			<div id="myModal" class="modal">
-			  <div class="modal-content">
-				<span class="close">&times;</span>
-				<p>This game made by Jonathan and Tamar.</p>
-			  </div>
-			
 			</div>
-		</div>
-		<div id ="Settings" style="display:none;">	
-			<div class="container" >
-				<div class = "settings">
-					Map keys: 
-					<div id="keys settings">
-							<input id="buttonUp" class="choose-keyboard" type="button" value="⇧" onclick="chooseKeyUp()"  >
-							<input id="buttonLeft" class="choose-keyboard" type="button" value="⇦" onclick="chooseKeyLeft()"  >
-							<input id="buttonRight" class="choose-keyboard" type="button" value="➪" onclick="chooseKeyRight()"  >
-							<input id="buttonDown" class="choose-keyboard" type="button" value="⇩" onclick="chooseKeyDown()"  >
+			<div id="Login" style="display:none;">
+				<form id="login_form" method="dialog">
+					<div class="container">
+						<h2 class="title">Login</h2>
+						<label><b>Username</b></label>
+						<input id="usernameLogin" type="text" placeholder="Enter Username">
+
+						<label><b>Password</b></label>
+						<input id="passwordLogin" type="password" placeholder="Enter Password">
+						<button type="submit" class="button-42" onclick="validate_login()">Login</button>
 					</div>
-					
-					Amount of balls: <br/>
-					<input type="range" id="number_of_balls" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
-					<output>50</output>
-					<p>5 point dots  : (Choose color)</p>
-					<input type="color" id="5_color" value="#FF726f"/>
-					
-					<p>15 point dots  : (Choose color)</p>
-					<input type="color" id="15_color" value="#88C0D3"/>
-					
-			
-					<p>25 point dots : (Choose color)</p>
-					<input type="color" id="25_color" value="#51C251"/><br/>
-					
-					Game length: <br/>
-					<input type="range" id="amount_of_time" value="60" min="60" max="120" oninput="this.nextElementSibling.value = this.value">
-					<output>60</output><br/>
-					Amount of ghosts: <br/>
-					<input type="range" id="number_of_ghosts" value="1" min="1" max="4" oninput="this.nextElementSibling.value = this.value">
-					<output>1</output>
-					<br/>
-					<button class = "button-32" type="button" onclick="randomSettings()">Random Settings</button>
-					<hr>
-					<button class = "button-42" onclick="initSettings()">Let's Start!</button>
-                </div>
-				
-            </div>
-		</div>
-			
-
-		</div>
-		<div id = "Game" style="display:none;text-align: center;" >
-			<div id="user">
-				<p id="currentUser"></p>
+				</form>
 			</div>
-			<div id="score">
-				<label for="lblScore">SCORE:</label>
-				<input id="lblScore" class= "liveData" type="text" />
-			</div>
-			<div id="time">
-				<label for="lblTime" >TIME:</label>
-				<input id="lblTime" class= "liveData" type="text" />
-			</div>
-			<div id="lives">
-				<label id = "live_label" >Lives:</label>
-				<img id="pac_lives_img" src="src/images/5lives.png" style="height: 30px;">
-			</div>
-			<div id="game">
-				<canvas id="canvas" height="900" width="900"></canvas>
-			</div>
-		</div>
-		</div>
 
 
-		<div id = "Restart" style="display:none;" >
-			<button class = "button" onclick="alternateDivs('Settings');">Restart Game</button>
+			<div id="Modal" style="display:block;">
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<p>This game made by Jonathan and Tamar.</p>
+					</div>
+
+				</div>
+			</div>
+			<div id="Settings" style="display:none;">
+				<div class="container">
+					<div class="settings">
+						Map keys:
+						<div id="keys settings">
+							<input id="buttonUp" class="choose-keyboard" type="button" value="⇧"
+								onclick="chooseKeyUp()">
+							<input id="buttonLeft" class="choose-keyboard" type="button" value="⇦"
+								onclick="chooseKeyLeft()">
+							<input id="buttonRight" class="choose-keyboard" type="button" value="➪"
+								onclick="chooseKeyRight()">
+							<input id="buttonDown" class="choose-keyboard" type="button" value="⇩"
+								onclick="chooseKeyDown()">
+						</div>
+
+						Amount of balls: <br />
+						<input type="range" id="number_of_balls" value="50" name="quantity" min="50" max="90"
+							oninput="this.nextElementSibling.value = this.value">
+						<output>50</output>
+						<p>5 point dots : (Choose color)</p>
+						<input type="color" id="5_color" value="#FF726f" />
+
+						<p>15 point dots : (Choose color)</p>
+						<input type="color" id="15_color" value="#88C0D3" />
+
+
+						<p>25 point dots : (Choose color)</p>
+						<input type="color" id="25_color" value="#51C251" /><br />
+
+						Game length: <br />
+						<input type="range" id="amount_of_time" value="60" min="60" max="120"
+							oninput="this.nextElementSibling.value = this.value">
+						<output>60</output><br />
+						Amount of ghosts: <br />
+						<input type="range" id="number_of_ghosts" value="1" min="1" max="4"
+							oninput="this.nextElementSibling.value = this.value">
+						<output>1</output>
+						<br />
+						<button class="button-32" type="button" onclick="randomSettings()">Random Settings</button>
+						<hr>
+						<button class="button-42" onclick="initSettings()">Let's Start!</button>
+					</div>
+
+				</div>
+			</div>
+
+			<div id="Game" style="display:none;text-align: center;">
+				<div id="user">
+					<p id="currentUser"></p>
+				</div>
+				<div id="score">
+					<label for="lblScore">SCORE:</label>
+					<input id="lblScore" class="liveData" type="text" />
+				</div>
+				<div id="time">
+					<label for="lblTime">TIME:</label>
+					<input id="lblTime" class="liveData" type="text" />
+				</div>
+				<div id="lives">
+					<label id="live_label">Lives:</label>
+					<img id="pac_lives_img" src="src/images/5lives.png" style="height: 30px;">
+				</div>
+				<div id="game">
+					<canvas id="canvas" height="900" width="900"></canvas>
+				</div>
+			</div>
 		</div>
-	
+
+
+		<div id="Restart" style="display:none;">
+			<button class="button" onclick="alternateDivs('Settings');">Restart Game</button>
+		</div>
+		</div>
+		</div>
 	</body>
 	<footer>
-		
+
 		<p>This game made by Jonathan and Tamar Ⓒ </p>
-	  </footer>
-</body>
+		<address>
+			Contact us: 
+			<a href="mailto:shaimant@post.bgu.ac.il">Jonathan & </a>
+			<a href="mailto:pelahj@post.bgu.ac.il">Tamar</a>
+		</address>
+
+	</footer>
+
 </html>
