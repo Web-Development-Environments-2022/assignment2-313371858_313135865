@@ -23,6 +23,9 @@ var gameLength = 60;
 let board_wo_ghost;
 var username;
 let key_pressed;
+var updateInterval;
+var scoreIntreval;
+var ghostInt;
 var audio = new Audio('src/backgroundMusic.mp3');
 
 function playSound() {
@@ -60,9 +63,7 @@ let countGhost = 0;
 let ghostPosition;
 let ghostInterval;
 
-setInterval(UpdatePosition, 300);
-setInterval(UpdateScoreCharacter, 500)
-setInterval(UpdateGhost, 350);
+
 
 function startGame() {
 	context = canvas.getContext("2d");
@@ -71,12 +72,21 @@ function startGame() {
 
 function Start() {
 
+
+	clearInterval(updateInterval);
+	clearInterval(scoreIntreval);
+	clearInterval(ghostInt);
+	updateInterval = setInterval(UpdatePosition, 300);
+	scoreIntreval = setInterval(UpdateScoreCharacter, 500)
+	ghostInt= setInterval(UpdateGhost, 350);
+
+
 	audio.play();
 	food_5 = food_remain * 0.6
 	food_15 = food_remain * 0.3
 	food_25 = food_remain * 0.1
 	window.clearInterval(ghostInterval);
-	packmanLives = 5;
+	packmanLives = 1;
 	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
 
@@ -467,6 +477,7 @@ function UpdatePosition() {
 			startConfetti()
 		}
 		// stopConfetti()
+		clearInterval(updateInterval);
 		alternateDivs('Restart')
 		audio.pause();
 	}
@@ -491,6 +502,7 @@ function repositionGhost() {
 	board_wo_ghost[pacman.i][pacman.j] = 2
 	Draw();
 }
+
 
 
 
