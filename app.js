@@ -86,7 +86,7 @@ function Start() {
 	food_15 = food_remain * 0.3
 	food_25 = food_remain * 0.1
 	window.clearInterval(ghostInterval);
-	packmanLives = 1;
+	packmanLives = 5;
 	ghostInterval = 350;
 	let ghost_remain = ghostNumFromUser;
 
