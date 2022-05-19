@@ -7,8 +7,8 @@
 
 ## Creators
 
-- 313371858
-- 313135865
+- Jonathan Pelah - 313371858
+- Tamar Shaiman - 313135865
 
 
 ## Additional functionality
